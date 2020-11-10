@@ -8,8 +8,13 @@
 }
 
 .dashboard-subcontent {
-    border-radius: 30px;
+    border-radius: 30px 30px 0 0;
     background-color: white;
+    position: relative;
+    padding: 3%;
+    -webkit-box-shadow: 0px -2px 13px 5px rgba(0, 0, 0, 0.27);
+    box-shadow: 0px -2px 13px 5px rgba(0, 0, 0, 0.27);
+    color: #444;
 }
 
 .profile-button {
@@ -28,7 +33,8 @@
 
 .balance {
     font-size: 48px;
-    margin: 4% 1%;
+    margin: 4%;
+    font-weight: 600;
 }
 
 .recents {
@@ -46,5 +52,13 @@
     width: 60px;
     border-radius: 50%;
     background-color: white;
-    border: 3px solid cyan;
+    border: 3px solid rgb(48, 190, 233);
+}
+
+.chart {
+    height: 300px;
+    width: 300px;
+    background-color: lightcoral;
+    border-radius: 50%;
+    margin: 5%;
 }

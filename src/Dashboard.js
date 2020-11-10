@@ -20,7 +20,8 @@ function Dashboard() {
                 </div>
             </div>
             <div className="dashboard-subcontent">
-
+                <h1>History</h1>
+                <div className="chart"></div>
             </div>
         </div>
     );
