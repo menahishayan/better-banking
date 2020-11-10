@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 
-function Main() {
+function Login() {
     return (
         <div>
-            <h1>Main</h1>
+            <h1>Login</h1>
             <Button type="primary">
                 Hello
           </Button>
@@ -12,4 +12,4 @@ function Main() {
     );
 }
 
-export default Main;
+export default Login;
