@@ -1,12 +1,17 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
+import Main from './Main';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div>
-      <h1>Better Banking</h1>
-      <Button type="primary">Halo</Button>
-    </div>
+    <Router>
+      <div>
+        <Route exact path="/" component={Main} />
+        {
+          // <Route path="/details" render={(props) => <Details {...props} />} />
+        }
+      </div>
+    </Router>
   );
 }
 
