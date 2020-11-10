@@ -9,6 +9,10 @@ function Dashboard() {
             <div className="dashboard-main">
                 <span className="balance">5023.06</span>
                 <div className="recents">
+                <div className="person">
+                        <div className="person-pic"></div>
+                        <span className="person-name">Shayan</span>
+                    </div>
                     <div className="person">
                         <div className="person-pic"></div>
                         <span className="person-name">Nishank</span>
