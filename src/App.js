@@ -1,5 +1,5 @@
 import React from 'react';
-import Main from './Main';
+import Dashboard from './Dashboard';
 import Login from './Login';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ function App() {
     <Router>
       <div>
         <Route exact path="/" component={Login} />
-        <Route path="/home" render={(props) => <Main {...props} />} />
+        <Route path="/dashboard" render={(props) => <Dashboard {...props} />} />
       </div>
     </Router>
   );
