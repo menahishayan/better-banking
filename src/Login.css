@@ -1,18 +1,19 @@
-div{
+/* Disabled interfering classes */
+
+/* div{
      margin: 20px;    
      padding: 10px;
 }
 h1{
      padding-left: 750px;
      padding-top: 150px;
-}
+} */
 .username{
      padding-left: 650px;
 }
 .password{
      padding-left: 650px;
-
 }
-button{
+/* button{
      margin-left: 790px;
-}
+} */
