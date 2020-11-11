@@ -1,10 +1,18 @@
-import React from 'react';
-import './Dashboard.css'
+import './Dashboard.css';
+import React, { useState } from 'react';
+import { Redirect } from 'react-router';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 
 function Dashboard() {
+    const [redirect, setRedirect] = useState();
+    const [redirectProps, setRedirectProps] = useState();
+
+    if (redirect) return <Redirect push to={{ pathname: redirect, state: redirectProps }} />
     return (
         <div className="dashboard-back">
-            <div className="profile-button zoom-m"></div>
+            {/* <FontAwesomeIcon icon={faSignOutAlt} className="logout"/> */}
+            <div className="profile-button zoom-m" onClick={() => setRedirect('/profile')}></div>
             <br /><br />
             <div className="dashboard-main">
                 <span className="balance amount">5023.06</span>
@@ -44,7 +52,7 @@ function Dashboard() {
                     <h1>Cards</h1>
                     <div className="card zoom-l">
                         <div className="card-type">
-                            <img src="visa-icon.svg" alt="visa" height="18px"/>
+                            <img src="visa-icon.svg" alt="visa" height="18px" />
                         </div>
                         <div className="card-no">{'4591 \u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 \u2022\u202235'}</div>
                     </div>
