@@ -36,8 +36,9 @@ function Dashboard() {
     const [redirect, setRedirect] = useState();
     const [redirectProps, setRedirectProps] = useState();
 
-    var user = db.getUser('0192319023103')
-    console.log(user)
+    db.getUser('0192319023103', (user) => {
+        console.log(user);
+    })
 
     if (redirect) return <Redirect push to={{ pathname: redirect, state: redirectProps }} />
     return (
