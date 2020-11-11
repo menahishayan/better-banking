@@ -1,0 +1,8 @@
+body {
+    overflow: hidden;
+}
+
+h1 {
+    user-select: none;
+    cursor: default;
+}
