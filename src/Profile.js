@@ -5,15 +5,14 @@ function Profile() {
     return (
         <div>
             <h1>Profile</h1>
-            <p> <h3>NAME</h3></p>
-            <p> <h3>Phone Number</h3></p>
-            <p> <h3>Aadhar</h3></p>
-            <p> <h3>Pan Number</h3></p>
+            <div className="person zoom-m">
+                        <div className="person-pic"></div>
+                        <span className="person-name">Nishank</span>
+                    </div>
             <Button type="primary">
                 Back
             </Button>
         </div>
     );
 }
-
 export default Profile;

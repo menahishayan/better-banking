@@ -30,3 +30,67 @@
     "shortname" : "Shayan"
   }
 }
+{
+  "2141448714878" : {
+    "accno" : "2141448714878",
+    "balance" : 20900,
+    "cards" : [ {
+      "cvv" : 654,
+      "expiry" : "2021-02",
+      "name" : "Podaralla Revathi",
+      "number" : "4591 4030 8962 7896",
+      "provider" : "visa",
+      "type" : "credit"
+    } ],
+    "dpURL" : "gs://better-banking-c614b.appspot.com/dp/IMG_7378 copy.jpg",
+    "history" : [ {
+      "amount" : 950,
+      "category" : "food",
+      "date" : "2020-06-06",
+      "description" : "Kormangala",
+      "name" : "Al Bek",
+      "type" : "store"
+    }, {
+      "amount" : 795,
+      "category" : "travel",
+      "date" : "2020-01-23",
+      "description" : "wickedride",
+      "name" : "param",
+      "type" : "store"
+    } ],
+    "name" : "Podaralla Revathi",
+    "shortname" : "Revathi"
+  }
+}
+{
+  "6292656562225" : {
+    "accno" : "6292656562225",
+    "balance" : 67970,
+    "cards" : [ {
+      "cvv" : 906,
+      "expiry" : "2024-08",
+      "name" : "Nishank Swamy",
+      "number" : "4591 5204 8472 1225",
+      "provider" : "visa",
+      "type" : "debit"
+    } ],
+    "dpURL" : "gs://better-banking-c614b.appspot.com/dp/IMG_7378 copy.jpg",
+    "history" : [ {
+      "amount" : 570,
+      "category" : "party",
+      "date" : "2020-08-12",
+      "description" : "Indiranagar",
+      "name" : "BREW",
+      "type" : "store"
+    }, {
+      "amount" : 999,
+      "category" : "travel",
+      "date" : "2020-11-01",
+      "description" : "Flight",
+      "name" : "SPICEJET",
+      "type" : "person"
+    } ],
+    "name" : "Nishank Swamy",
+    "shortname" : "Nishank"
+  }
+}
