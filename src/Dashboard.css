@@ -1,3 +1,6 @@
+body {
+    overflow: hidden;
+}
 .dashboard-back {
     background-color: darkblue;
 }
@@ -15,6 +18,7 @@
     -webkit-box-shadow: 0px -2px 13px 5px rgba(0, 0, 0, 0.27);
     box-shadow: 0px -2px 13px 5px rgba(0, 0, 0, 0.27);
     color: #444;
+    padding-bottom: 15%;
 }
 
 .profile-button {
@@ -27,7 +31,7 @@
     margin: 2% 2.5%;
 }
 
-.balance::before {
+.amount::before {
     content: '\20B9';
 }
 
@@ -40,6 +44,23 @@
 .recents {
     width: 60%;
     float: right;
+}
+
+.recents::after {
+    content: '+';
+    height: 63px;
+    width: 63px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.493);
+    padding: 4px 0;
+    text-align: center;
+    display: block;
+    font-size: 34px;
+    font-weight: bold;
+    display: inline-block;
+    position: relative;
+    top:-35px;
+    margin-left: 2%;
 }
 
 .person {
@@ -61,4 +82,51 @@
     background-color: lightcoral;
     border-radius: 50%;
     margin: 5%;
+    float: left;
+}
+
+.history-list {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 400px;
+    width: 35%;
+    display: inline-block;
+}
+
+.history {
+    border-bottom: 1px solid lightgray;
+    width: 100%;
+    padding: 8px;
+    padding-top: 15px;
+}
+
+.history-icon {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: darkgray;
+    float: left;
+    display: block;
+    margin: 0 2.5%;
+}
+
+.history-name {
+    font-weight: bold;
+    color: #444;
+    display: block;
+}
+
+.history-description {
+    color: darkgray;
+    font-size: small;
+    position: relative;
+    top: -7px;
+}
+
+.history-amount {
+    float: right;
+    font-weight: bold;
+    font-size: 22px;
+    position: relative;
+    top: -20px;
 }
