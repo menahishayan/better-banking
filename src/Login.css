@@ -1,15 +1,22 @@
-h1{
-     text-align: center;
-     margin-top: 250px;
+body{
+     background-color: darkgray;
+}
+.login{
+     /* text-align: center; */
+     margin-top: 15%;
+     margin-left: 45.5%;
+     margin-bottom:2%;
 }
 .username{
-     text-align: center;
-     margin-bottom: 10px;
+     /* text-align: center; */
+     margin-left: 43%;
+     margin-bottom: 1.5%;
 }
 .password{
-     text-align: center;
-     margin-bottom: 10px;
+     /* text-align: center; */
+     margin-left: 43%;
+     margin-bottom: 1.5%;
 }
 button{
-     margin-left:48%;
+     margin-left:46.8%;
 }

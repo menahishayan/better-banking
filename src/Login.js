@@ -4,7 +4,7 @@ import './Login.css'
 function Login() {
     return (
         <div>
-            <h1>Login</h1>
+            <h1 className="login">Login</h1>
             <form action="signin.html" method="post">
                 <div className="username">
                      <input id="username" type="Username" required placeholder="Username"></input>
@@ -12,7 +12,7 @@ function Login() {
                  <div className="password">
                      <input id="password" type="Password" required placeholder="Password"></input>
                  </div>
-                 <button>Login</button>
+                 <button className="button">Login</button>
             </form>
         </div>
     );
