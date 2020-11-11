@@ -151,20 +151,9 @@ h1 {
     top: -20px;
 }
 
-.card {
-    height: 180px;
-    width: 310px;
-    border-radius: 18px;
-    background-color: #FAD961;
-    background-image: linear-gradient(69deg, #FAD961 0%, #F76B1C 100%);
-    margin: 8% 5%;
-    border-width: 0;
-    padding: 5%;
-}
-
 .zoom-m,
 .zoom-l {
-    transition: transform .4s;
+    transition: all .4s;
     cursor: pointer;
 }
 
@@ -174,4 +163,35 @@ h1 {
 
 .zoom-l:hover {
     transform: scale(1.05);
+}
+
+.card {
+    height: 180px;
+    width: 310px;
+    border-radius: 18px;
+    background-color: #FAD961;
+    background-image: linear-gradient(69deg, #FAD961 0%, #F76B1C 100%);
+    margin: 8% 5%;
+    border-width: 0;
+    padding: 8%;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+.card:hover {
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3);
+}
+
+.card-no {
+    color: white;
+    position: relative;
+    top: 60%;
+    letter-spacing: 2px;
+}
+
+.card-type {
+    position: absolute;
+    top:10%;
+    right: 8%;
 }

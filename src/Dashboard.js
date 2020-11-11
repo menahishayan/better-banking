@@ -24,7 +24,7 @@ function Dashboard() {
                 </div>
             </div>
             <div className="dashboard-subcontent">
-                <div style={{width: '78%'}}>
+                <div style={{ width: '78%' }}>
                     <h1>History</h1>
                     <div className="chart"></div>
                     <div className="history-list">
@@ -42,7 +42,12 @@ function Dashboard() {
                 </div>
                 <div className="card-section">
                     <h1>Cards</h1>
-                    <div className="card zoom-l"></div>
+                    <div className="card zoom-l">
+                        <div className="card-type">
+                            <img src="visa-icon.svg" alt="visa" height="18px"/>
+                        </div>
+                        <div className="card-no">{'4591 \u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 \u2022\u202235'}</div>
+                    </div>
                 </div>
             </div>
         </div>
