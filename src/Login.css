@@ -2,21 +2,18 @@ body{
      background-color: darkgray;
 }
 .login{
-     /* text-align: center; */
      margin-top: 15%;
      margin-left: 45.5%;
      margin-bottom:2%;
 }
 .username{
-     /* text-align: center; */
      margin-left: 43%;
      margin-bottom: 1.5%;
 }
 .password{
-     /* text-align: center; */
      margin-left: 43%;
      margin-bottom: 1.5%;
 }
-button{
+.button{
      margin-left:46.8%;
 }
