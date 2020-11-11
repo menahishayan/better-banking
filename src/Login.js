@@ -5,9 +5,16 @@ function Login() {
     return (
         <div>
             <h1>Login</h1>
-            <Button type="primary">
-                Hello
-          </Button>
+            <from action="signin.html" method="post">
+                <div>
+                     <input id="username" type="Username" required placeholder="Username"></input>
+                 </div>
+                 <div>
+                     <input id="password" type="Password" required placeholder="Password"></input>
+                 </div>
+                 <button>Login</button>
+            </from>
+            
         </div>
     );
 }
