@@ -1,20 +1,15 @@
-/* Disabled interfering classes */
-
-/* div{
-     margin: 20px;    
-     padding: 10px;
-}
 h1{
-     padding-left: 750px;
-     padding-top: 150px;
-} */
+     text-align: center;
+     margin-top: 250px;
+}
 .username{
-     padding-left: 650px;
-     /* Padding left is not the correct way to center things. it wont work on all screens */
+     text-align: center;
+     margin-bottom: 10px;
 }
 .password{
-     padding-left: 650px;
+     text-align: center;
+     margin-bottom: 10px;
 }
-/* button{
-     margin-left: 790px;
-} */
+button{
+     margin-left:48%;
+}
