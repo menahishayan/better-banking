@@ -1,6 +1,7 @@
 body {
     overflow: hidden;
 }
+
 .dashboard-back {
     background-color: darkblue;
 }
@@ -8,17 +9,6 @@ body {
 .dashboard-main {
     padding: 3%;
     color: white;
-}
-
-.dashboard-subcontent {
-    border-radius: 30px 30px 0 0;
-    background-color: white;
-    position: relative;
-    padding: 3%;
-    -webkit-box-shadow: 0px -2px 13px 5px rgba(0, 0, 0, 0.27);
-    box-shadow: 0px -2px 13px 5px rgba(0, 0, 0, 0.27);
-    color: #444;
-    padding-bottom: 15%;
 }
 
 .profile-button {
@@ -59,7 +49,7 @@ body {
     font-weight: bold;
     display: inline-block;
     position: relative;
-    top:-35px;
+    top: -35px;
     margin-left: 2%;
 }
 
@@ -76,6 +66,25 @@ body {
     border: 3px solid rgb(48, 190, 233);
 }
 
+.dashboard-subcontent {
+    border-radius: 30px 30px 0 0;
+    background-color: white;
+    position: relative;
+    padding: 3%;
+    -webkit-box-shadow: 0px -2px 13px 5px rgba(0, 0, 0, 0.27);
+    box-shadow: 0px -2px 13px 5px rgba(0, 0, 0, 0.27);
+    color: #444;
+    padding-bottom: 15%;
+    display: inline-flex;
+    width: 100%;
+}
+
+.card-section {
+    border-left: 1px solid lightgray;
+    padding-left: 4%;
+    margin-left: -8%;
+}
+
 .chart {
     height: 300px;
     width: 300px;
@@ -89,7 +98,7 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
     height: 400px;
-    width: 35%;
+    width: 45%;
     display: inline-block;
 }
 
@@ -129,4 +138,14 @@ body {
     font-size: 22px;
     position: relative;
     top: -20px;
+}
+
+.card {
+    height: 180px;
+    width: 310px;
+    border-radius: 18px;
+    background-color: #FAD961;
+    background-image: linear-gradient(69deg, #FAD961 0%, #F76B1C 100%);
+    margin: 8% 5%;
+    border-width: 0;
 }
