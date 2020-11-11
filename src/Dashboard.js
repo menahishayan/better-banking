@@ -4,20 +4,20 @@ import './Dashboard.css'
 function Dashboard() {
     return (
         <div className="dashboard-back">
-            <div className="profile-button"></div>
+            <div className="profile-button zoom-m"></div>
             <br /><br />
             <div className="dashboard-main">
                 <span className="balance amount">5023.06</span>
                 <div className="recents">
-                    <div className="person">
+                    <div className="person zoom-m">
                         <div className="person-pic"></div>
                         <span className="person-name">Shayan</span>
                     </div>
-                    <div className="person">
+                    <div className="person zoom-m">
                         <div className="person-pic"></div>
                         <span className="person-name">Nishank</span>
                     </div>
-                    <div className="person">
+                    <div className="person zoom-m">
                         <div className="person-pic"></div>
                         <span className="person-name">Revathi</span>
                     </div>
@@ -42,7 +42,7 @@ function Dashboard() {
                 </div>
                 <div className="card-section">
                     <h1>Cards</h1>
-                    <div className="card"></div>
+                    <div className="card zoom-l"></div>
                 </div>
             </div>
         </div>
