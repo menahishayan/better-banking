@@ -4,7 +4,7 @@
 1. VSCode
 2. Terminal (top)
 3. Run Task
-4. npm: start\
+4. npm: start
 5. [https://localhost:3000](https://localhost:3000)
 
 ### Getting other dearu's changes
