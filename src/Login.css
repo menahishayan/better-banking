@@ -10,6 +10,7 @@ h1{
 } */
 .username{
      padding-left: 650px;
+     /* Padding left is not the correct way to center things. it wont work on all screens */
 }
 .password{
      padding-left: 650px;
