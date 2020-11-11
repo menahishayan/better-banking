@@ -8,6 +8,14 @@
     color: white;
 }
 
+.name {
+    color: white;
+    padding-top: 2.3%;
+    float: right;
+    font-size: 18px;
+    font-weight: bold;
+}
+
 .profile-button {
     height: 35px;
     width: 35px;
@@ -16,6 +24,7 @@
     float: right;
     display: block;
     margin: 2% 2.5%;
+    margin-left: 1%;
 }
 
 .amount::before {
@@ -88,10 +97,6 @@
 }
 
 .chart {
-    height: 300px;
-    width: 300px;
-    background-color: lightcoral;
-    border-radius: 50%;
     margin: 5%;
     float: left;
 }

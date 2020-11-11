@@ -1,0 +1,37 @@
+{
+    "0192319023103": {
+        "name": "Menahi Shayan",
+        "shortname": "Shayan",
+        "accno": "0192319023103",
+        "balance": 10000,
+        "dpURL": "",
+        "cards": [
+            {
+                "name": "Menahi Shayan",
+                "number": "4591 5000 5432 6535",
+                "cvv": 354,
+                "expiry": "2022-05",
+                "type": "credit",
+                "provider": "visa"
+            }
+        ],
+        "history": [
+            {
+                "name": "KFC",
+                "amount": 675.5,
+                "date": "2020-05-01",
+                "description": "Kormangala",
+                "category": "food",
+                "type": "store"
+            },
+            {
+                "name": "Fellow",
+                "amount": 775,
+                "date": "2020-01-23",
+                "description": "Bounce",
+                "category": "travel",
+                "type": "person"
+            }
+        ]
+    }
+}
