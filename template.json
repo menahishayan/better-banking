@@ -1,0 +1,32 @@
+{
+  "0192319023103" : {
+    "accno" : "0192319023103",
+    "balance" : 10000,
+    "cards" : [ {
+      "cvv" : 354,
+      "expiry" : "2022-05",
+      "name" : "Menahi Shayan",
+      "number" : "4591 5000 5432 6535",
+      "provider" : "visa",
+      "type" : "credit"
+    } ],
+    "dpURL" : "gs://better-banking-c614b.appspot.com/dp/IMG_7378 copy.jpg",
+    "history" : [ {
+      "amount" : 675.5,
+      "category" : "food",
+      "date" : "2020-05-01",
+      "description" : "Kormangala",
+      "name" : "KFC",
+      "type" : "store"
+    }, {
+      "amount" : 775,
+      "category" : "travel",
+      "date" : "2020-01-23",
+      "description" : "Bounce",
+      "name" : "Fellow",
+      "type" : "person"
+    } ],
+    "name" : "Menahi Shayan",
+    "shortname" : "Shayan"
+  }
+}
