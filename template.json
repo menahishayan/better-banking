@@ -1,33 +1,4 @@
 {
-  "P1UUbhJEx6T63ceqWw1RDGKXmo12" : {
-    "accno" : "0192319023103",
-    "balance" : 10000,
-    "cards" : [ {
-      "cvv" : 354,
-      "expiry" : "2022-05",
-      "name" : "Menahi Shayan",
-      "number" : "4591 5000 5432 6535",
-      "provider" : "visa",
-      "type" : "credit"
-    } ],
-    "history" : [ {
-      "amount" : 675.5,
-      "category" : "food",
-      "date" : "2020-05-01",
-      "description" : "Kormangala",
-      "name" : "KFC",
-      "type" : "store"
-    }, {
-      "amount" : 775,
-      "category" : "travel",
-      "date" : "2020-01-23",
-      "description" : "Bounce",
-      "name" : "Fellow",
-      "type" : "person"
-    } ],
-    "name" : "Menahi Shayan",
-    "shortname" : "Shayan"
-  },
   "GRxen20Hy2PWt00dxEj4LRk9z5V2" : {
     "accno" : "2141448714878",
     "balance" : 20900,
@@ -52,6 +23,21 @@
       "date" : "2020-01-23",
       "description" : "wickedride",
       "name" : "param",
+      "type" : "store"
+    }, {
+      "amount" : 775,
+      "category" : "travel",
+      "date" : "2020-01-23",
+      "description" : "Bounce",
+      "accno" : "0192319023103",
+      "name" : "Menahi Shayan",
+      "type" : "person"
+    }, {
+      "amount" : 623,
+      "category" : "food",
+      "date" : "2020-04-23",
+      "description" : "Arekere, Bannerghatta Road",
+      "name" : "Pizza Hut",
       "type" : "store"
     } ],
     "name" : "Podaralla Revathi",
@@ -82,8 +68,90 @@
       "description" : "Flight",
       "name" : "SPICEJET",
       "type" : "person"
-    } ],
+    }, {
+      "amount" : 775,
+      "category" : "travel",
+      "date" : "2020-01-23",
+      "description" : "Bounce",
+      "accno" : "0192319023103",
+      "name" : "Menahi Shayan",
+      "type" : "person"
+    }, {
+      "amount" : 623,
+      "category" : "food",
+      "date" : "2020-04-23",
+      "description" : "Arekere, Bannerghatta Road",
+      "name" : "Pizza Hut",
+      "type" : "store"
+    },{
+      "amount" : 4251.6,
+      "category" : "shopping",
+      "date" : "2020-01-03",
+      "description" : "Myntra",
+      "accno" : "2141448714878",
+      "name": "Podaralla Revathi",
+      "type" : "person"
+    }, {
+      "amount" : 284,
+      "category" : "shopping",
+      "date" : "2020-04-07",
+      "description" : "Online Purchase",
+      "name" : "Amazon",
+      "type" : "store"
+    }  ],
     "name" : "Nishank Swamy",
     "shortname" : "Nishank"
+  },
+  "P1UUbhJEx6T63ceqWw1RDGKXmo12" : {
+    "accno" : "0192319023103",
+    "balance" : 10000,
+    "cards" : [ {
+      "cvv" : 354,
+      "expiry" : "2022-05",
+      "name" : "Menahi Shayan",
+      "number" : "4591 5000 5432 6535",
+      "provider" : "visa",
+      "type" : "credit"
+    } ],
+    "history" : [ {
+      "amount" : 675.5,
+      "category" : "food",
+      "date" : "2020-05-01",
+      "description" : "Kormangala",
+      "name" : "KFC",
+      "type" : "store"
+    }, {
+      "amount" : 775,
+      "category" : "travel",
+      "date" : "2020-01-23",
+      "description" : "Bounce",
+      "accno" : "6292656562225",
+      "name" : "Nishank Swamy",
+      "type" : "person"
+    }, {
+      "amount" : 623,
+      "category" : "food",
+      "date" : "2020-04-23",
+      "description" : "Arekere, Bannerghatta Road",
+      "name" : "Pizza Hut",
+      "type" : "store"
+    },{
+      "amount" : 4251.6,
+      "category" : "shopping",
+      "date" : "2020-01-03",
+      "description" : "Myntra",
+      "accno" : "2141448714878",
+      "name" : "Podaralla Revathi",
+      "type" : "person"
+    }, {
+      "amount" : 284,
+      "category" : "shopping",
+      "date" : "2020-04-07",
+      "description" : "Online Purchase",
+      "name" : "Amazon",
+      "type" : "store"
+    } ],
+    "name" : "Menahi Shayan",
+    "shortname" : "Shayan"
   }
 }

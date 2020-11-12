@@ -13,24 +13,18 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 function Dashboard(props) {
     const [redirect, setRedirect] = useState();
     const [chartData, setChartData] = useState([]);
+    const [recentPersons, setRecentPersons] = useState([]);
+    const [profilePic, setProfilePic] = useState();
     var user = props.location.state
 
     const maskedCardNo = (number) => {
         return number.substring(0, 4) + number.substring(4, number.length - 2).replace(/\d/g, "\u2022") + number.substring(number.length - 2);
     }
 
-    const loadProfilePic = (accno) => {
-        db.getProfilePic(accno, (url) => {
-            var img = document.getElementById('userpic');
-            img.src = url;
-            var img2 = document.getElementById('userpic2');
-            img2.src = url;
-        })
-    }
-
-    loadProfilePic(user.accno)
-
     useEffect(() => {
+        db.getProfilePic(user.accno, (url) => {
+            setProfilePic(url)
+        })
         const getChartData = () => {
             let items = {}, arrayItems = []
 
@@ -45,8 +39,21 @@ function Dashboard(props) {
 
             setChartData(arrayItems);
         }
+        const getRecentPersons = () => {
+            setRecentPersons([])
+            user.history.forEach(his => {
+                if (his.type === 'person') {
+                    // db.getUser(his.accno, (user) =>
+                        db.getProfilePic(his.accno, (url) => {
+                            setRecentPersons(r => [...r,{name: his.name.split(' ')[0],img:url}])
+                        })
+                    // )
+                }
+            })
+        }
         getChartData()
-    }, [user.history])
+        getRecentPersons()
+    }, [user.accno, user.history])
 
     const chartLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
         const radius = innerRadius + (outerRadius - innerRadius) * 0.25;
@@ -77,26 +84,26 @@ function Dashboard(props) {
     return (
         <div className="dashboard-back">
             {/* <FontAwesomeIcon icon={faSignOutAlt} className="logout"/> */}
-            <img id="userpic" className="profile-button zoom-m" onClick={() => setRedirect('/profile')} alt="userpic" />
+            <img src={profilePic} className="profile-button zoom-m" onClick={() => setRedirect('/profile')} alt="" />
             <div className="name">{user.shortname}</div>
             <br /><br />
             <div className="dashboard-main">
                 <span className="balance amount">{user.balance.toFixed(2)}</span>
                 <div className="recents">
-                    <div className="person zoom-m">
-                        <div>
-                            <img id="userpic2" alt="userpic" className="person-pic" />
-                        </div>
-                        <span className="person-name">Shayan</span>
-                    </div>
-                    <div className="person zoom-m">
-                        {/* <div className="person-pic"></div> */}
-                        <span className="person-name">Nishank</span>
-                    </div>
-                    <div className="person zoom-m">
-                        <div className="person-pic"></div>
-                        <span className="person-name">Revathi</span>
-                    </div>
+                    {
+                        recentPersons && recentPersons.map((person, p) =>
+                            <div className="person zoom-m" key={p}>
+                                {
+                                    person.img ?
+                                        <div>
+                                            <img src={person.img} alt={person.name} className="person-pic" />
+                                        </div> :
+                                        <div className="person-pic"></div>
+                                }
+                                <span className="person-name">{person.name}</span>
+                            </div>
+                        )
+                    }
                 </div>
             </div>
             <div className="dashboard-subcontent">
@@ -114,7 +121,7 @@ function Dashboard(props) {
                             user.history.map((item, i) => (
                                 <div className="history" key={i}>
                                     <div className="history-icon"></div>
-                                    <span className="history-name">{item.name}</span>
+                                    <span className="history-name">{item.name || item.accno}</span>
                                     <span className="history-description">{item.description}</span>
                                     <span className="history-amount amount">{item.amount}</span>
                                 </div>
