@@ -1,26 +1,21 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router';
-import { Button } from 'react-bootstrap';
-import './Login.css'
-import DB from './DB'
+import { useForm } from "react-hook-form";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button'
+import './Login.css';
+import DB from './DB';
 
 const db = new DB()
 
 function Login() {
     const [redirect, setRedirect] = useState();
     const [user, setUser] = useState();
+    const { register, handleSubmit } = useForm()
 
-    const loginHandler = (testPerson) => {
-        if(!user) {
-            let id = '';
-            
-            switch(testPerson) {
-                case 'Shayan': id = '0192319023103'; break;
-                case 'Nishank': id = '6292656562225'; break;
-                case 'Revathi': id = '2141448714878'; break;
-                default: id = '';
-            }
-            db.getUser(id, (user) => {
+    const loginHandler = () => {
+        if (!user) {
+            db.getUser('0192319023103', (user) => {
                 setUser(user);
                 setRedirect('/dashboard')
             })
@@ -29,17 +24,13 @@ function Login() {
 
     if (redirect) return <Redirect push to={{ pathname: redirect, state: user }} />
     return (
-        <div>
-            <h1 className="login">Login</h1>
-                <div className="username">
-                     <input id="username" type="Username"  placeholder="Username"></input>
-                 </div>
-                 <div className="password">
-                     <input id="password" type="Password"  placeholder="Password"></input>
-                 </div>
-                 <Button className="button" onClick={() => loginHandler('Shayan')}>Shayan</Button>
-                 <Button className="button" onClick={() => loginHandler('Nishank')}>Nishank</Button>
-                 <Button className="button" onClick={() => loginHandler('Revathi')}>Revathi</Button>
+        <div className="login-bg">
+            <Form className='login-container' onSubmit={handleSubmit(loginHandler)}>
+                <h2>Login</h2>
+                <Form.Control type="text" name='username' placeholder='Username' className="textfield field" ref={register({ required: true })} /><br />
+                <Form.Control type="password" name='password' placeholder='Password' className="textfield field" ref={register({ required: true })} /><br />
+                <Button type="submit" className='submit'>Submit</Button>
+            </Form>
         </div>
     );
 }
