@@ -6,3 +6,13 @@ h3{
     text-align: center;
     margin-top: 250px;
 }
+.profile-back {
+    color: white;
+    background-color: #0093E9;
+    background-image: linear-gradient(135deg, #003feb 0%, #80b9d0 100%);
+}
+.profile {
+    display: inline-block;
+    margin: 0 2%;
+    text-align: center;
+}
