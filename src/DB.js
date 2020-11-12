@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
+import 'firebase/storage';
 import config from './config';
 import React from 'react';
 
@@ -16,6 +17,10 @@ class DB extends React.Component {
 		ref.on('value', async(snapshot) => {
 			callback(await snapshot.val())
 		})
+	}
+	getProfilePic = (accno, callback) => {
+		let ref = firebase.storage().ref('dp/' + accno + '.jpg');
+		ref.getDownloadURL().then(callback).catch(err => console.log(err))
 	}
 }
 export default DB;

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router';
+import { Button } from 'react-bootstrap';
 import './Login.css'
 import DB from './DB'
 
@@ -9,9 +10,17 @@ function Login() {
     const [redirect, setRedirect] = useState();
     const [user, setUser] = useState();
 
-    const loginHandler = () => {
+    const loginHandler = (testPerson) => {
         if(!user) {
-            db.getUser('0192319023103', (user) => {
+            let id = '';
+            
+            switch(testPerson) {
+                case 'Shayan': id = '0192319023103'; break;
+                case 'Nishank': id = '6292656562225'; break;
+                case 'Revathi': id = '2141448714878'; break;
+                default: id = '';
+            }
+            db.getUser(id, (user) => {
                 setUser(user);
                 setRedirect('/dashboard')
             })
@@ -22,15 +31,15 @@ function Login() {
     return (
         <div>
             <h1 className="login">Login</h1>
-            <form action="signin.html" method="post">
                 <div className="username">
-                     <input id="username" type="Username" required placeholder="Username"></input>
+                     <input id="username" type="Username"  placeholder="Username"></input>
                  </div>
                  <div className="password">
-                     <input id="password" type="Password" required placeholder="Password"></input>
+                     <input id="password" type="Password"  placeholder="Password"></input>
                  </div>
-                 <button className="button" onClick={loginHandler}>Login</button>
-            </form>
+                 <Button className="button" onClick={() => loginHandler('Shayan')}>Shayan</Button>
+                 <Button className="button" onClick={() => loginHandler('Nishank')}>Nishank</Button>
+                 <Button className="button" onClick={() => loginHandler('Revathi')}>Revathi</Button>
         </div>
     );
 }

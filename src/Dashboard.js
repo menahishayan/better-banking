@@ -4,6 +4,9 @@ import { Redirect } from 'react-router';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { PieChart, Pie, Cell } from 'recharts';
+import DB from './DB'
+
+const db = new DB()
 
 const data = [
     { name: 'Group A', value: 600 },
@@ -31,7 +34,7 @@ const renderCustomizedLabel = ({
 
 function Dashboard(props) {
     const [redirect, setRedirect] = useState();
-    const user = props.location.state
+    var user = props.location.state
 
     console.log(user);
 
@@ -39,18 +42,31 @@ function Dashboard(props) {
         return number.substring(0, 4) + number.substring(4, number.length - 2).replace(/\d/g, "\u2022") + number.substring(number.length - 2);
     }
 
+    const loadProfilePic = (accno) => {
+        db.getProfilePic(accno, (url) => {
+            var img = document.getElementById('userpic');
+            img.src = url;
+            var img2 = document.getElementById('userpic2');
+            img2.src = url;
+        })
+    }
+
+    loadProfilePic(user.accno)
+
     if (redirect) return <Redirect push to={{ pathname: redirect, state: user }} />
     return (
         <div className="dashboard-back">
             {/* <FontAwesomeIcon icon={faSignOutAlt} className="logout"/> */}
-            <div className="profile-button zoom-m" onClick={() => setRedirect('/profile')}></div>
+            <img id="userpic" className="profile-button zoom-m" onClick={() => setRedirect('/profile')} alt="userpic"/>
             <div className="name">{user.shortname}</div>
             <br /><br />
             <div className="dashboard-main">
                 <span className="balance amount">{user.balance.toFixed(2)}</span>
                 <div className="recents">
                     <div className="person zoom-m">
-                        <div className="person-pic"></div>
+                        <div>
+                        <img id="userpic2" alt="userpic" className="person-pic"/>
+                        </div>
                         <span className="person-name">Shayan</span>
                     </div>
                     <div className="person zoom-m">
