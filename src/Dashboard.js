@@ -117,7 +117,7 @@ function Dashboard(props) {
                         {/* <Legend /> */}
                     </PieChart>
                     <div className="history-list">
-                        {
+                        { //add txn id & to and from tracking on both sides
                             user.history.map((item, i) => (
                                 <div className="history" key={i}>
                                     <div className="history-icon"></div>
