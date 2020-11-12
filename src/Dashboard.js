@@ -1,39 +1,18 @@
 import './Dashboard.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
-import { PieChart, Pie, Cell } from 'recharts';
+import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import DB from './DB'
 
 const db = new DB()
 
-const data = [
-    { name: 'Group A', value: 600 },
-    { name: 'Group B', value: 300 },
-    { name: 'Group C', value: 300 },
-    { name: 'Group D', value: 100 },
-];
-
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-
-const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({
-    cx, cy, midAngle, innerRadius, outerRadius, percent, index,
-}) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + (radius * 0.95) * Math.cos(-midAngle * RADIAN);
-    const y = cy + (radius * 0.95) * Math.sin(-midAngle * RADIAN);
-
-    return (
-        <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-            {`${(percent * 100).toFixed(0)}%`}
-        </text>
-    );
-};
 
 function Dashboard(props) {
     const [redirect, setRedirect] = useState();
+    const [chartData, setChartData] = useState([]);
     var user = props.location.state
 
     console.log(user);
@@ -53,11 +32,55 @@ function Dashboard(props) {
 
     loadProfilePic(user.accno)
 
+    const getChartData = () => {
+        let items = {}, arrayItems = []
+
+        user.history.forEach(his => {
+            if (items[his.category]) items[his.category].value += his.amount
+            else items[his.category] = { name: his.category[0].toUpperCase() + his.category.slice(1), value: his.amount }
+        })
+
+        for (let item in items) {
+            arrayItems.push(items[item])
+        }
+
+        setChartData(arrayItems);
+    }
+
+    useEffect(() => {
+        getChartData()
+    }, [])
+
+    const chartLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+        const radius = innerRadius + (outerRadius - innerRadius) * 0.25;
+        const x = cx + radius * Math.cos(-midAngle * (Math.PI / 180));
+        const y = cy + radius * Math.sin(-midAngle * (Math.PI / 180));
+
+        return (
+            <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+                {chartData[index].name}
+            </text>
+        );
+    };
+
+    const chartTooltip = ({ active, payload, label }) => {
+        if (active) {
+            return (
+                <div className="chart-tooltip">
+                    <b>{`${payload[0].name}`}</b><br />
+                    {` \u20B9${payload[0].value.toFixed(2)}`}
+                </div>
+            );
+        }
+
+        return null;
+    };
+
     if (redirect) return <Redirect push to={{ pathname: redirect, state: user }} />
     return (
         <div className="dashboard-back">
             {/* <FontAwesomeIcon icon={faSignOutAlt} className="logout"/> */}
-            <img id="userpic" className="profile-button zoom-m" onClick={() => setRedirect('/profile')} alt="userpic"/>
+            <img id="userpic" className="profile-button zoom-m" onClick={() => setRedirect('/profile')} alt="userpic" />
             <div className="name">{user.shortname}</div>
             <br /><br />
             <div className="dashboard-main">
@@ -65,7 +88,7 @@ function Dashboard(props) {
                 <div className="recents">
                     <div className="person zoom-m">
                         <div>
-                        <img id="userpic2" alt="userpic" className="person-pic"/>
+                            <img id="userpic2" alt="userpic" className="person-pic" />
                         </div>
                         <span className="person-name">Shayan</span>
                     </div>
@@ -83,9 +106,11 @@ function Dashboard(props) {
                 <div style={{ width: '78%' }}>
                     <h1>History</h1>
                     <PieChart width={300} height={300} className="chart">
-                        <Pie data={data} labelLine={false} label={renderCustomizedLabel} outerRadius={150} innerRadius={110} fill="#8884d8" dataKey="value" >
-                            {data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
+                        <Pie data={chartData} labelLine={false} label={chartLabel} outerRadius={150} innerRadius={110} fill="#8884d8" dataKey="value" >
+                            {chartData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
                         </Pie>
+                        <Tooltip content={chartTooltip} />
+                        {/* <Legend /> */}
                     </PieChart>
                     <div className="history-list">
                         {
