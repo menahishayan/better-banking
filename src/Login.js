@@ -15,19 +15,22 @@ function Login() {
 
     const loginHandler = (d) => {
         if (!user) {
-            let id = ''
-            switch(d.email) {
-                case 'menahi.shayan@gmail.com': id='P1UUbhJEx6T63ceqWw1RDGKXmo12'; break;
-                case 'nishank.swamy@gmail.com': id='Gkv2Z8gyfINuWc5ofF8C1BVGwAm2'; break;
-                case 'revathipodaralla123@gmail.com': id='GRxen20Hy2PWt00dxEj4LRk9z5V2'; break;
-                default: console.log('login error');
-            }
-            db.getUser(id, (user) => {
-                setUser(user);
-                setRedirect('/dashboard')
+            db.login(d.email, d.password, (user) => {
+                if (user) {
+                    setUser(user);
+                    setRedirect('/dashboard')
+                }
+                else alert("login error")
             })
         }
     }
+
+    db.loginFetch((user) => {
+        if (user) {
+            setUser(user);
+            setRedirect('/dashboard')
+        }
+    })
 
     if (redirect) return <Redirect push to={{ pathname: redirect, state: user }} />
     return (
@@ -35,11 +38,11 @@ function Login() {
             <h1 className="title">Better Banking</h1>
             <Form className='login-container' onSubmit={handleSubmit(loginHandler)}>
                 <h2>Login</h2>
-                <br/>
+                <br />
                 <Form.Control type="email" name='email' placeholder='Email' className="textfield field" ref={register({ required: true })} />
                 <Form.Control type="password" name='password' placeholder='Password' className="textfield field" ref={register({ required: true })} />
                 <Button type="submit" className='submit'>Submit</Button>
-                <br/><br/><br/>
+                <br /><br /><br />
             </Form>
         </div>
     );

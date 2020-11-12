@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
 import 'firebase/storage';
+import 'firebase/auth';
 import config from './config';
 import React from 'react';
 
@@ -12,15 +13,31 @@ class DB extends React.Component {
 		}
 	}
 
-	getUser = (accno, callback) => {
-		let ref = firebase.database().ref('/' + accno);
-		ref.on('value', async(snapshot) => {
+	getUser = (uid, callback) => {
+		let ref = firebase.database().ref('/' + uid);
+		ref.on('value', async (snapshot) => {
 			callback(await snapshot.val())
 		})
 	}
 	getProfilePic = (accno, callback) => {
 		let ref = firebase.storage().ref('dp/' + accno + '.jpg');
 		ref.getDownloadURL().then(callback).catch(err => console.log(err))
+	}
+	login = (email, pass, callback) => {
+		firebase.auth().signInWithEmailAndPassword(email, pass).catch((error) => {
+			var errorMessage = error.message;
+			alert(errorMessage)
+		});
+	}
+	loginFetch = (callback) => {
+		firebase.auth().onAuthStateChanged((user) => {
+			if (user) {
+				var uid = user.uid;
+				this.getUser(uid, callback)
+			} else {
+				return
+			}
+		});
 	}
 }
 export default DB;
