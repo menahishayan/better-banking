@@ -15,8 +15,6 @@ function Dashboard(props) {
     const [chartData, setChartData] = useState([]);
     var user = props.location.state
 
-    console.log(user);
-
     const maskedCardNo = (number) => {
         return number.substring(0, 4) + number.substring(4, number.length - 2).replace(/\d/g, "\u2022") + number.substring(number.length - 2);
     }
@@ -32,24 +30,23 @@ function Dashboard(props) {
 
     loadProfilePic(user.accno)
 
-    const getChartData = () => {
-        let items = {}, arrayItems = []
-
-        user.history.forEach(his => {
-            if (items[his.category]) items[his.category].value += his.amount
-            else items[his.category] = { name: his.category[0].toUpperCase() + his.category.slice(1), value: his.amount }
-        })
-
-        for (let item in items) {
-            arrayItems.push(items[item])
-        }
-
-        setChartData(arrayItems);
-    }
-
     useEffect(() => {
+        const getChartData = () => {
+            let items = {}, arrayItems = []
+
+            user.history.forEach(his => {
+                if (items[his.category]) items[his.category].value += his.amount
+                else items[his.category] = { name: his.category[0].toUpperCase() + his.category.slice(1), value: his.amount }
+            })
+
+            for (let item in items) {
+                arrayItems.push(items[item])
+            }
+
+            setChartData(arrayItems);
+        }
         getChartData()
-    }, [])
+    }, [user.history])
 
     const chartLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
         const radius = innerRadius + (outerRadius - innerRadius) * 0.25;
@@ -93,7 +90,7 @@ function Dashboard(props) {
                         <span className="person-name">Shayan</span>
                     </div>
                     <div className="person zoom-m">
-                        <div className="person-pic"></div>
+                        {/* <div className="person-pic"></div> */}
                         <span className="person-name">Nishank</span>
                     </div>
                     <div className="person zoom-m">

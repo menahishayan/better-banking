@@ -23,12 +23,11 @@ class DB extends React.Component {
 		let ref = firebase.storage().ref('dp/' + accno + '.jpg');
 		ref.getDownloadURL().then(callback).catch(err => console.log(err))
 	}
-	login = (email, pass, callback) => {
-		firebase.auth().signInWithEmailAndPassword(email, pass).catch((error) => {
-			var errorMessage = error.message;
-			alert(errorMessage)
-		});
+
+	login = (email, pass, errorCallback) => {
+		firebase.auth().signInWithEmailAndPassword(email, pass).catch(errorCallback);
 	}
+
 	loginFetch = (callback) => {
 		firebase.auth().onAuthStateChanged((user) => {
 			if (user) {

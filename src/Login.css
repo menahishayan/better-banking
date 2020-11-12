@@ -36,3 +36,9 @@
      font-weight:600;
      font-size: 18px;
 }
+
+.login-alert {
+     color: rgb(212, 5, 33);
+     font-size: small;
+     font-weight: 600;
+}
