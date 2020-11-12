@@ -4,16 +4,13 @@ import './Profile.css';
 
 function Profile() {
     return (
-        <div className='profile-back'>
-            {/* <h1>Profile</h1>
-            <div className="person zoom-m">
-                <div className="person-pic"></div>
-                <span className="person-name">Nishank</span>
-            </div>
-            <Button type="primary">Back</Button> */}
-            <div className="person zoom-m">
-                <div className="person-pic"></div>
-                <span className="person-name">Nishank</span>
+        <div>
+            <div className='profile-back'> &nbsp;</div>
+            <div className='dashboard-subcontent' style={{marginTop:'-2%'}}>
+                <div className="profile zoom-m">
+                    <div className="profile-pic"></div>
+                    <span className="person-name">Nishank</span>
+                </div>
             </div>
         </div>
     );
