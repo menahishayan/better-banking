@@ -35,3 +35,19 @@
 .info{
     padding: 0 0 2% 4%;
 }
+.edit{
+    height: 63px;
+    width: 63px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.473);
+    padding: 4px 0;
+    text-align: center;
+    display: block;
+    font-size: 34px;
+    font-weight: bold;
+    display: inline-block;
+    color: white;
+    position: relative;
+    top: -35px;
+    margin-left: 2%;
+}
