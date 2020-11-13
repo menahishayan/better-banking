@@ -13,11 +13,21 @@ class DB extends React.Component {
 		}
 	}
 
-	getUser = (uid, callback) => {
-		let ref = firebase.database().ref('/' + uid);
+	getUser = (accno, callback) => {
+		let ref = firebase.database().ref('/' + accno);
 		ref.on('value', async (snapshot) => {
+			// var user = firebase.auth().currentUser;
+			// var data = await snapshot.val()
+			// user.updateProfile({
+			// 	displayName: data.accno
+			// }).then(function () {
+			// 	console.log("success");
+			// }).catch(function (error) {
+			// 	console.log(error);
+			// });
 			callback(await snapshot.val())
 		})
+
 	}
 	getProfilePic = (accno, callback) => {
 		let ref = firebase.storage().ref('dp/' + accno + '.jpg');
@@ -31,8 +41,7 @@ class DB extends React.Component {
 	loginFetch = (callback) => {
 		firebase.auth().onAuthStateChanged((user) => {
 			if (user) {
-				var uid = user.uid;
-				this.getUser(uid, callback)
+				this.getUser(user.displayName, callback)
 			} else {
 				return
 			}

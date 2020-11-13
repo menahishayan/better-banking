@@ -43,11 +43,11 @@ function Dashboard(props) {
             setRecentPersons([])
             user.history.forEach(his => {
                 if (his.type === 'person') {
-                    // db.getUser(his.accno, (user) =>
+                    db.getUser(his.accno, (user) =>
                         db.getProfilePic(his.accno, (url) => {
-                            setRecentPersons(r => [...r,{name: his.name.split(' ')[0],img:url}])
+                            setRecentPersons(r => [...r,{name: user.shortname,img:url}])
                         })
-                    // )
+                    )
                 }
             })
         }
