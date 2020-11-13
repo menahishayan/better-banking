@@ -2,7 +2,7 @@ import './Dashboard.css';
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft,faUtensils,faPlane,faShoppingBag } from '@fortawesome/free-solid-svg-icons'
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import DB from './DB'
 
@@ -80,6 +80,15 @@ function Dashboard(props) {
         return null;
     };
 
+    const getCategoryIcon = (category) => {
+        switch(category) {
+            case 'food': return <FontAwesomeIcon icon={faUtensils}/>
+            case 'travel': return <FontAwesomeIcon icon={faPlane}/>
+            case 'shopping': return <FontAwesomeIcon icon={faShoppingBag}/>
+            default: return ''
+        }
+    }
+
     if (redirect) return <Redirect push to={{ pathname: redirect, state: user }} />
     return (
         <div className="dashboard-back">
@@ -120,7 +129,7 @@ function Dashboard(props) {
                         { //add txn id & to and from tracking on both sides
                             user.history.map((item, i) => (
                                 <div className="history" key={i}>
-                                    <div className="history-icon"></div>
+                                    <div className="history-icon" style={{backgroundColor:COLORS[i % COLORS.length]}}>{getCategoryIcon(item.category)}</div>
                                     <span className="history-name">{item.name || item.accno}</span>
                                     <span className="history-description">{item.description}</span>
                                     <span className="history-amount amount">{item.amount}</span>
