@@ -43,7 +43,7 @@ class DB extends React.Component {
 			if (user) {
 				this.getUser(user.displayName, callback)
 			} else {
-				return
+				callback()
 			}
 		});
 	}
