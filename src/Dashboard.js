@@ -1,8 +1,8 @@
 import './Dashboard.css';
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import DB from './DB'
 
@@ -83,7 +83,7 @@ function Dashboard(props) {
     if (redirect) return <Redirect push to={{ pathname: redirect, state: user }} />
     return (
         <div className="dashboard-back">
-            {/* <FontAwesomeIcon icon={faSignOutAlt} className="logout"/> */}
+            <FontAwesomeIcon icon={faArrowLeft} className="back-button zoom-m"/>
             <img src={profilePic} className="profile-button zoom-m" onClick={() => setRedirect('/profile')} alt="" />
             <div className="name">{user.shortname}</div>
             <br /><br />
