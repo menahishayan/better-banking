@@ -83,7 +83,7 @@ function Dashboard(props) {
     if (redirect) return <Redirect push to={{ pathname: redirect, state: user }} />
     return (
         <div className="dashboard-back">
-            <FontAwesomeIcon icon={faArrowLeft} className="back-button zoom-m"/>
+            <FontAwesomeIcon icon={faArrowLeft} className="back-button zoom-m" onClick={() => db.logout(() => setRedirect('/'))}/>
             <img src={profilePic} className="profile-button zoom-m" onClick={() => setRedirect('/profile')} alt="" />
             <div className="name">{user.shortname}</div>
             <br /><br />

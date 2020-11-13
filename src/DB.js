@@ -47,5 +47,9 @@ class DB extends React.Component {
 			}
 		});
 	}
+
+	logout = (callback) => {
+		firebase.auth().signOut().then(callback).catch(error => console.log(error));
+	}
 }
 export default DB;
