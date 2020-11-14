@@ -20,4 +20,71 @@
     padding: 2% 3%;
     border-radius: 18px;
     text-align: center;
+    -webkit-box-shadow: 0px 0px 13px 5px rgba(0, 0, 0, 0.17);
+    box-shadow: 0px 0px 13px 5px rgba(0, 0, 0, 0.17);
+}
+
+.chart {
+    margin: 5%;
+    float: left;
+}
+
+.chart-tooltip {
+    background-color: rgba(255, 255, 255, 0.726);
+    text-align: center;
+    border-radius: 15px;
+    padding: 8px 20px;
+}
+
+
+.card {
+    height: 180px;
+    width: 310px;
+    border-radius: 18px;
+    background-color: #FAD961;
+    background-image: linear-gradient(69deg, #FAD961 0%, #F76B1C 100%);
+    margin: 8% 5%;
+    border-width: 0;
+    padding: 8%;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+.card:hover {
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3);
+}
+
+.card-no {
+    color: white;
+    position: relative;
+    top: 60%;
+    letter-spacing: 2px;
+}
+
+.card-type {
+    position: absolute;
+    top:10%;
+    right: 8%;
+}
+
+
+.person {
+    display: inline-block;
+    margin: 0 2%;
+    text-align: center;
+}
+
+.person-pic {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    background-color: white;
+    border: 3px solid rgb(48, 190, 233);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.person-name {
+    user-select: none;
 }
