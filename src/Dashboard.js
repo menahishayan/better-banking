@@ -108,7 +108,7 @@ function Dashboard(props) {
                 </div>
                 <div className="card-section">
                     <h1>Cards</h1>
-                    <Card cardNo={user.cards[0].number} />
+                    <Card card={user.cards[0]} />
                 </div>
 
             </div>
@@ -120,6 +120,11 @@ function Dashboard(props) {
                         <br />
                         <Form.Control type="number" name='amount' placeholder='Amount' className="textfield field" ref={register({ required: true })} />
                         <Form.Control type="text" name='description' placeholder='Message' className="textfield field" ref={register({ required: false })} />
+                        
+                        <div className="history-icon" style={{ backgroundColor:  'rgb(226, 225, 225)', color:'grey' }}>{<FontAwesomeIcon icon={faUtensils} />}</div>
+                        <div className="history-icon" style={{ backgroundColor:  'rgb(226, 225, 225)', color:'grey' }}>{<FontAwesomeIcon icon={faPlane} />}</div>
+                        <div className="history-icon" style={{ backgroundColor:  'rgb(226, 225, 225)', color:'grey' }}>{<FontAwesomeIcon icon={faShoppingBag} />}</div>
+                        <br /><br /><br />
                         <Button type="submit" className='submit'>
                             {loading ? <Spinner
                                 as="span"
@@ -128,7 +133,7 @@ function Dashboard(props) {
                                 size="sm"
                             /> : 'Pay'}
                         </Button>
-                        <br /><br />
+                        <br />
                         {error ? <p className="login-alert">{error}</p> : <br />}
                     </Form>
                 </Overlay>

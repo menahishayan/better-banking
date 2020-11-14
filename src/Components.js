@@ -57,15 +57,20 @@ export const Card = props => {
     return (
         <div className="card zoom-l">
             <div className="card-type">
-                <img src="visa-icon.svg" alt="visa" height="18px" />
+                {
+                    props.card.provider === 'mastercard' ?
+                        <img src="mc-icon.svg" alt="mc" height="24px" />
+                        :
+                        <img src="visa-icon.svg" alt="visa" height="18px" />
+                }
             </div>
-            <div className="card-no">{maskedCardNo(props.cardNo)}</div>
+            <div className="card-no">{maskedCardNo(props.card.number)}</div>
         </div>
     )
 }
 
 export const PersonAvatar = props => (
-    <div style={{ display: 'inline', position:props.inline ? 'relative':'static',left:'-3%'}}>
+    <div style={{ display: 'inline', position: props.inline ? 'relative' : 'static', left: '-3%' }}>
         <div className="person zoom-m" onClick={props.onClick} style={[{ display: props.inline ? 'inline-block' : 'block' }, props.style]}>
             {
                 props.person.img ?
@@ -78,9 +83,9 @@ export const PersonAvatar = props => (
         </div>
         {
             props.inline &&
-            <div style={{ display: 'inline-block', textAlign:'left', marginLeft:'2%', position:'relative',top:12 }}>
-                <span style={{ fontSize: 22, fontWeight: 600, position:'relative',top:8 }}>{props.person.name}</span>
-                <small style={{position:'relative',color:'darkgrey' }}><br/>{props.person.accno}</small>
+            <div style={{ display: 'inline-block', textAlign: 'left', marginLeft: '2%', position: 'relative', top: 12 }}>
+                <span style={{ fontSize: 22, fontWeight: 600, position: 'relative', top: 8 }}>{props.person.name}</span>
+                <small style={{ position: 'relative', color: 'darkgrey' }}><br />{props.person.accno}</small>
             </div>
         }
     </div>
