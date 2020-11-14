@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft,faUtensils,faPlane,faShoppingBag } from '@fortawesome/free-solid-svg-icons'
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import DB from './DB'
+import { Overlay } from './Components'
 
 const db = new DB()
 
@@ -15,6 +16,8 @@ function Dashboard(props) {
     const [chartData, setChartData] = useState([]);
     const [recentPersons, setRecentPersons] = useState([]);
     const [profilePic, setProfilePic] = useState();
+    const [payOverlay, setPayOverlay] = useState();
+
     var user = props.location.state
 
     const maskedCardNo = (number) => {
@@ -101,7 +104,7 @@ function Dashboard(props) {
                 <div className="recents">
                     {
                         recentPersons && recentPersons.map((person, p) =>
-                            <div className="person zoom-m" key={p}>
+                            <div className="person zoom-m" key={p} onClick={() => setPayOverlay(true)}>
                                 {
                                     person.img ?
                                         <div>
@@ -149,6 +152,13 @@ function Dashboard(props) {
                 </div>
 
             </div>
+            { payOverlay &&
+				<Overlay visible={payOverlay} bgClick={() => setPayOverlay(!payOverlay)} height={25} width={50}>
+					<div style={{display:'inline-block', width: '100%', overflow:'scroll'}}>
+					<h3><b>New</b></h3>
+					</div>
+				</Overlay>
+			}
         </div>
     );
 }
