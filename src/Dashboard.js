@@ -1,8 +1,12 @@
 import './Dashboard.css';
 import React, { useState, useEffect } from 'react';
+import { useForm } from "react-hook-form";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button'
+import Spinner from 'react-bootstrap/Spinner'
 import { Redirect } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft,faUtensils,faPlane,faShoppingBag } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faUtensils, faPlane, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import DB from './DB'
 import { Overlay } from './Components'
@@ -17,6 +21,10 @@ function Dashboard(props) {
     const [recentPersons, setRecentPersons] = useState([]);
     const [profilePic, setProfilePic] = useState();
     const [payOverlay, setPayOverlay] = useState();
+    const [newPayment, setNewPayment] = useState();
+    const [error, setError] = useState();
+    const [loading, setLoading] = useState(false);
+    const { register, handleSubmit } = useForm()
 
     var user = props.location.state
 
@@ -48,7 +56,7 @@ function Dashboard(props) {
                 if (his.type === 'person') {
                     db.getUser(his.accno, (user) =>
                         db.getProfilePic(his.accno, (url) => {
-                            setRecentPersons(r => [...r,{name: user.shortname,img:url}])
+                            setRecentPersons(r => [...r, { accno: user.accno, name: user.name, shortname: user.shortname, img: url }])
                         })
                     )
                 }
@@ -83,11 +91,15 @@ function Dashboard(props) {
         return null;
     };
 
+    const payHandler = (d) => {
+        console.log(d);
+    }
+
     const getCategoryIcon = (category) => {
-        switch(category) {
-            case 'food': return <FontAwesomeIcon icon={faUtensils}/>
-            case 'travel': return <FontAwesomeIcon icon={faPlane}/>
-            case 'shopping': return <FontAwesomeIcon icon={faShoppingBag}/>
+        switch (category) {
+            case 'food': return <FontAwesomeIcon icon={faUtensils} />
+            case 'travel': return <FontAwesomeIcon icon={faPlane} />
+            case 'shopping': return <FontAwesomeIcon icon={faShoppingBag} />
             default: return ''
         }
     }
@@ -95,7 +107,7 @@ function Dashboard(props) {
     if (redirect) return <Redirect push to={{ pathname: redirect, state: user }} />
     return (
         <div className="dashboard-back">
-            <FontAwesomeIcon icon={faArrowLeft} className="back-button zoom-m" onClick={() => db.logout(() => setRedirect('/'))}/>
+            <FontAwesomeIcon icon={faArrowLeft} className="back-button zoom-m" onClick={() => db.logout(() => setRedirect('/'))} />
             <img src={profilePic} className="profile-button zoom-m" onClick={() => setRedirect('/profile')} alt="" />
             <div className="name">{user.shortname}</div>
             <br /><br />
@@ -104,15 +116,15 @@ function Dashboard(props) {
                 <div className="recents">
                     {
                         recentPersons && recentPersons.map((person, p) =>
-                            <div className="person zoom-m" key={p} onClick={() => setPayOverlay(true)}>
+                            <div className="person zoom-m" key={p} onClick={() => { setPayOverlay(true); setNewPayment({ person }) }}>
                                 {
                                     person.img ?
                                         <div>
-                                            <img src={person.img} alt={person.name} className="person-pic" />
+                                            <img src={person.img} alt={person.shortname} className="person-pic" />
                                         </div> :
                                         <div className="person-pic"></div>
                                 }
-                                <span className="person-name">{person.name}</span>
+                                <span className="person-name">{person.shortname}</span>
                             </div>
                         )
                     }
@@ -132,7 +144,7 @@ function Dashboard(props) {
                         { //add txn id & to and from tracking on both sides
                             user.history.map((item, i) => (
                                 <div className="history" key={i}>
-                                    <div className="history-icon" style={{backgroundColor:COLORS[i % COLORS.length]}}>{getCategoryIcon(item.category)}</div>
+                                    <div className="history-icon" style={{ backgroundColor: COLORS[i % COLORS.length] }}>{getCategoryIcon(item.category)}</div>
                                     <span className="history-name">{item.name || item.accno}</span>
                                     <span className="history-description">{item.description}</span>
                                     <span className="history-amount amount">{item.amount}</span>
@@ -153,12 +165,42 @@ function Dashboard(props) {
 
             </div>
             { payOverlay &&
-				<Overlay visible={payOverlay} bgClick={() => setPayOverlay(!payOverlay)} height={25} width={50}>
-					<div style={{display:'inline-block', width: '100%', overflow:'scroll'}}>
-					<h3><b>New</b></h3>
-					</div>
-				</Overlay>
-			}
+                <Overlay visible={payOverlay} bgClick={() => setPayOverlay(!payOverlay)} height={25} width={50}>
+
+                    <Form onSubmit={handleSubmit(payHandler)}>
+                        <div style={{ display: 'inline-block' }}>
+                            <div style={{ display: 'inline-block' }}>
+                                {
+                                    newPayment.person.img ?
+                                        <div>
+                                            <img src={newPayment.person.img} alt={newPayment.person.shortname} className="person-pic" />
+                                        </div> :
+                                        <div className="person-pic"></div>
+                                }
+                            </div>
+                            <div style={{ display: 'inline-block' }}>
+
+                            <span style={{fontSize:22, fontWeight:'bold'}}>Pay {newPayment.person.name}</span><br/>
+                            <span>{newPayment.person.accno}</span>
+                        </div>
+                        </div>
+
+                        <br />
+                        <Form.Control type="number" name='amount' placeholder='Amount' className="textfield field" ref={register({ required: true })} />
+                        <Form.Control type="text" name='description' placeholder='Message' className="textfield field" ref={register({ required: false })} />
+                        <Button type="submit" className='submit'>
+                            {loading ? <Spinner
+                                as="span"
+                                animation="border"
+                                role="status"
+                                size="sm"
+                            /> : 'Pay'}
+                        </Button>
+                        <br /><br />
+                        {error ? <p className="login-alert">{error}</p> : <br />}
+                    </Form>
+                </Overlay>
+            }
         </div>
     );
 }
