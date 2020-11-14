@@ -48,7 +48,7 @@ function Login() {
                         animation="border"
                         role="status"
                         size="sm"
-                    />: 'Submit'}
+                    />: 'Login'}
                 </Button>
                 <br /><br />
                 {error ? <p className="login-alert">{error}</p> : <br />}
