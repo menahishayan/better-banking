@@ -14,15 +14,16 @@
     height: 120px;
     width: 120px;
     border-radius: 50%;
-    background-color: white;
+    /* background-color: white; */
     border: 3px solid rgb(48, 190, 233);
+    /* display: block; */
     margin: auto;
 }
 .profile-subcontent {
     border-radius: 30px 30px 0 0;
     background-color: white;
     position: relative;
-    padding: 3%;
+    padding: 3% 3% 3% 7%;
     -webkit-box-shadow: 0px -2px 13px 5px rgba(0, 0, 0, 0.27);
     box-shadow: 0px -2px 13px 5px rgba(0, 0, 0, 0.27);
     color: #444;
@@ -33,21 +34,31 @@
     font-size: 18px;
 }
 .info{
-    padding: 0 0 2% 4%;
+    padding: 0 0 2% 0%;
 }
 .edit{
     height: 63px;
     width: 63px;
     border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.473);
-    padding: 4px 0;
+    background-color: #97a19a;
+    padding: 12px 0;
     text-align: center;
     display: block;
-    font-size: 34px;
+    font-size: 27px;
     font-weight: bold;
-    display: inline-block;
+    /* display: inline-block; */
     color: white;
     position: relative;
-    top: -35px;
-    margin-left: 2%;
+    float: right;
+    margin: -6% 0;
+    /* margin-left: 2%; */
+}
+.change{
+    border-radius: 18px;
+    background-color: #003feb;
+    padding: 1%;
+    width: 15%;
+    color: white;
+    font-weight:600;
+    font-size: 16px;
 }
