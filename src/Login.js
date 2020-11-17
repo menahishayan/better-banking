@@ -13,14 +13,35 @@ function Login() {
     const [redirect, setRedirect] = useState();
     const [user, setUser] = useState();
     const [error, setError] = useState();
+    const [signUp, setsignUp] = useState(false);
+    const [login, setlogin] = useState("Login");
     const [loading, setLoading] = useState(true);
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, getValues } = useForm()
 
     const loginHandler = (d) => {
         setLoading(true)
-        db.login(d.email, d.password, (error) => {
-            setError(error.message)
+        if (signUp) {
+            console.log("SIGN UP");
+            db.createUser(d.email,d.password)
+            setRedirect('/dashboard')
+        }
+        else {
+            db.login(d.email, d.password, (error) => {
+                setError(error.message)
+                setLoading(false)
+                console.log(error.code);
+            })
+        }
+    }
+
+    const loginCheck = () => {
+        var email=getValues('email')
+        db.login(email,'0', (error) => {
             setLoading(false)
+            if(error.code==='auth/user-not-found'){
+                setsignUp(true)
+                setlogin("Sign Up")
+            }
         })
     }
 
@@ -38,17 +59,22 @@ function Login() {
         <div className="login-bg">
             <h1 className="title">Better Banking</h1>
             <Form className='login-container' onSubmit={handleSubmit(loginHandler)}>
-                <h2>Login</h2>
+                <h2>{login}</h2>
                 <br />
-                <Form.Control type="email" name='email' placeholder='Email' className="textfield field" ref={register({ required: true })} />
+                <Form.Control type="email" name='email' placeholder='Email' className="textfield field" ref={register({ required: true })} onBlur={() => loginCheck() } />
                 <Form.Control type="password" name='password' placeholder='Password' className="textfield field" ref={register({ required: true })} />
+                {
+                    signUp && <div>
+                        <Form.Control type="password" name='confirm_password' placeholder='Confirm Password' className="textfield field" ref={register({ required: true })} />
+                    </div>
+                }
                 <Button type="submit" className='submit'>
                     {loading ? <Spinner
                         as="span"
                         animation="border"
                         role="status"
                         size="sm"
-                    />: 'Login'}
+                    />: login}
                 </Button>
                 <br /><br />
                 {error ? <p className="login-alert">{error}</p> : <br />}

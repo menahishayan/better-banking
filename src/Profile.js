@@ -23,11 +23,9 @@ function Profile(props) {
         db.getProfilePic(user.accno, (url) => {
             setProfilePic(url)
         })
-    })
+    }, [])
     const passwordHandler = (d) => {
-        db.login(d.email, d.password, (error) => {
-            setError(error.message)
-        })
+        db.updatePass(user)
     }
     if (redirect) return <Redirect push to={{ pathname: redirect, state: user }} />
 
@@ -52,8 +50,8 @@ function Profile(props) {
                 { changePassword &&
 				<Overlay visible={changePassword} bgClick={() => setchangePassword(!changePassword)} height={40} width={50}>
 					<div style={{display:'inline-block', width: '100%', overflow:'scroll',marginTop:'-2%'}}>
-                    <Form onSubmit={handleSubmit(passwordHandler)}>
-                        <Form.Control type="password" name='oldPassword' placeholder='Old Password' className="textfield field" ref={register({ required: true })} />
+                    <Form onSubmit={handleSubmit(passwordHandler)} autocomplete="off">
+                        <Form.Control type="password" name='oldPassword' placeholder='Old Password' className="textfield field" ref={register({ required: true })} autocomplete="off"/>
                         <Form.Control type="password" name='newPassword' placeholder='New Password' className="textfield field" ref={register({ required: true })} />
                         <Form.Control type="password" name='confirmNewPassword' placeholder='Confirm New Password' className="textfield field" ref={register({ required: true })} />
                         <Button className='submit' type='submit'>Submit</Button>
@@ -61,11 +59,6 @@ function Profile(props) {
 					</div>
 				</Overlay>
 			    }
-                {changePassword && <div>
-
-                    hi
-                </div>
-                }
 
                 {/* <div>
                     {   

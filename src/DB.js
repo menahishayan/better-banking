@@ -47,6 +47,29 @@ class DB extends React.Component {
 			}
 		});
 	}
+	
+	createUser = (email, password) => {
+		firebase.auth().createUserWithEmailAndPassword(email, password)
+		console.log("createUser");
+
+		// if (user) {
+		// 	this.getUser(user.displayName, callback)
+		// } else {
+		// 	callback()
+		// }
+	}
+
+	updatePass = (callback) => {
+		firebase.auth().onAuthStateChanged((user) => {
+			if (user) {
+				var newPassword ;
+				user.updatePassword(newPassword).then(function () {
+				}).catch(function (error) {});
+			} else {
+				callback()
+			}
+		});
+	}
 
 	logout = (callback) => {
 		firebase.auth().signOut().then(callback).catch(error => console.log(error));
