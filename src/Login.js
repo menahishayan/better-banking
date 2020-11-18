@@ -21,9 +21,11 @@ function Login() {
     const loginHandler = (d) => {
         setLoading(true)
         if (signUp) {
-            console.log("SIGN UP");
-            db.createUser(d.email,d.password)
-            setRedirect('/dashboard')
+            db.createUser(d.email,d.password,(user) => {
+                console.log(user);
+                // setUser(user)
+                // setRedirect('/profile')
+            })
         }
         else {
             db.login(d.email, d.password, (error) => {
