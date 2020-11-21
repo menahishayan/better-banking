@@ -49,26 +49,40 @@ class DB extends React.Component {
 	}
 
 	createUser = (email, password, callback) => {
-		firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
-			console.log(user);
+		firebase.auth().createUserWithEmailAndPassword(email, password).then((result) => {
+			console.log(result);
+
+			const numbers = '1234567890'
+			let userID = ' '
+			for (let i = 0; i < 13; ++i)
+				userID += numbers.charAt(Math.floor(Math.random() * numbers.length))
+
+			console.log(userID);
+
 			let userProfile = {
-				balance: 0
+				accno: userID,
+				balance: 0,
+				email: email,
+				name: "",
+				shortname: "",
+				cards: [],
+				history: []
 			}
-			// generate acc no
-			// set balance = 0
-			// name = "", shortnamr = ""
-			// cards = []
-			// history = []
 
-			user.updateProfile({
-				displayName: userProfile.accno
-			}).then(function () {
-				console.log("success");
-			}).catch(function (error) {
-				console.log(error);
+			firebase.auth().onAuthStateChanged((user) => {
+				if (user) {
+					user.updateProfile({
+						displayName: userProfile.accno
+					}).then(function () {
+						console.log("success");
+						let ref = firebase.database().ref('/' + userProfile.accno);
+						ref.set(userProfile)
+						callback()
+					}).catch(function (error) {
+						console.log(error);
+					});
+				}
 			});
-
-			let ref = firebase.database().ref('/' + userProfile.accno);
 
 		}).catch((error) => {
 			console.log("Error");
@@ -76,11 +90,30 @@ class DB extends React.Component {
 		});
 	}
 
+	edit = (callback) => {
+
+		// firebase.auth().onAuthStateChanged((user) => {
+		// 	if (user) {
+		// 		user.updateProfile({
+		// 			displayName: userProfile.accno
+		// 		}).then(function () {
+		// 			console.log("success");
+		// 			let ref = firebase.database().ref('/' + userProfile.accno);
+		// 			ref.set(userProfile)
+		// 			callback()
+		// 		}).catch(function (error) {
+		// 			console.log(error);
+		// 		});
+		// 	}
+		// });
+	}
+
 	updatePass = (callback) => {
 		firebase.auth().onAuthStateChanged((user) => {
 			if (user) {
 				var newPassword;
 				user.updatePassword(newPassword).then(function () {
+					console.log("success");
 				}).catch(function (error) { });
 			} else {
 				callback()

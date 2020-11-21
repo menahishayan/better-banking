@@ -4,6 +4,12 @@
     background-color: #0093E9;
     background-image: linear-gradient(135deg, #003feb 0%, #80b9d0 100%);
 }
+.efield{
+    margin: 0 4% 0 2%;
+    padding: 2%;
+    border-radius: 10px;
+    width: 35%;
+}
 .profile {
     display: block;
     margin: auto;
@@ -65,8 +71,9 @@
 .submit{
     border-radius: 10px;
     background-color: #003feb;
-    padding: 2%;
+    /* padding: 1%; */
     width: 100%;
+    margin: auto;
     color: white;
     font-weight:600;
     font-size: 18px;

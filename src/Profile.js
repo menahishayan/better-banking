@@ -14,6 +14,8 @@ const db = new DB()
 function Profile(props) {
     const [redirect, setRedirect] = useState();
     const [profilePic, setProfilePic] = useState();
+    const [showEdit, setshowEdit] = useState(false);
+    const [showDetails, setshowDetails] = useState(true);
     const [changePassword, setchangePassword] = useState(false);
     const { register, handleSubmit } = useForm()
     const [error, setError] = useState();
@@ -27,6 +29,9 @@ function Profile(props) {
     const passwordHandler = (d) => {
         db.updatePass(user)
     }
+    const editdHandler = (d) => {
+        db.updatePass(user)
+    }
     if (redirect) return <Redirect push to={{ pathname: redirect, state: user }} />
 
     console.log(user);
@@ -35,32 +40,66 @@ function Profile(props) {
             <FontAwesomeIcon icon={faArrowLeft} className="back-button zoom-m" onClick={() => setRedirect('/dashboard')} />
             <div className='profile-back'> &nbsp;</div>
             <div className='profile-subcontent'>
-                <div className="profile zoom-m">
-                    <div ><img src={profilePic} className="profile-pic" alt="" /></div>
-                    <span className="person-name">{user.name}</span>
-                </div><br />
-                <div className='edit'><FontAwesomeIcon icon={faPencilAlt} /></div>
-                <div className='info'><b>Short Name :</b> {user.shortname}</div>
-                <div className='info'><b>Account Number:</b> {user.accno}</div>
-                <div className='info'><b>Date of Birth :</b> {user.dob}</div>
-                <div className='info'><b>Phone :</b> {user.phone}</div>
-                <div className='info'><b>Email :</b> {user.email}</div>
-                <div className='info'><b>UPI ID :</b> {user.upi}</div>
-                <Button className='change' onClick={() => setchangePassword(true)}>Change Password</Button>
-                { changePassword &&
-				<Overlay visible={changePassword} bgClick={() => setchangePassword(!changePassword)} height={40} width={50}>
-					<div style={{display:'inline-block', width: '100%', overflow:'scroll',marginTop:'-2%'}}>
-                    <Form onSubmit={handleSubmit(passwordHandler)} autocomplete="off">
-                        <Form.Control type="password" name='oldPassword' placeholder='Old Password' className="textfield field" ref={register({ required: true })} autocomplete="off"/>
-                        <Form.Control type="password" name='newPassword' placeholder='New Password' className="textfield field" ref={register({ required: true })} />
-                        <Form.Control type="password" name='confirmNewPassword' placeholder='Confirm New Password' className="textfield field" ref={register({ required: true })} />
-                        <Button className='submit' type='submit'>Submit</Button>
-                    </Form>
-					</div>
-				</Overlay>
-			    }
-
-                {/* <div>
+                {
+                    showDetails && <div>
+                        <div className="profile zoom-m">
+                            <div ><img src={profilePic} className="profile-pic" alt="" /></div>
+                            <span className="person-name">{user.name}</span>
+                        </div><br />
+                        <div className='edit zoom-m' onClick={() => (setshowDetails(false), setshowEdit(true))}><FontAwesomeIcon icon={faPencilAlt} /></div>
+                        <div className='info'><b>Short Name :</b> {user.shortname}</div>
+                        <div className='info'><b>Account Number:</b> {user.accno}</div>
+                        <div className='info'><b>Date of Birth :</b> {user.dob}</div>
+                        <div className='info'><b>Phone :</b> {user.phone}</div>
+                        <div className='info'><b>Email :</b> {user.email}</div>
+                        <div className='info'><b>UPI ID :</b> {user.upi}</div>
+                        <Button className='change' onClick={() => setchangePassword(true)}>Change Password</Button>
+                        {
+                            changePassword &&
+                            <Overlay visible={changePassword} bgClick={() => setchangePassword(!changePassword)} height={40} width={50}>
+                                <div style={{ display: 'inline-block', width: '100%', overflow: 'scroll', marginTop: '-2%' }}>
+                                    <Form onSubmit={handleSubmit(passwordHandler)} autocomplete="off">
+                                        <Form.Control type="password" name='oldPassword' placeholder='Old Password' className="textfield field" ref={register({ required: true })} autocomplete="off" />
+                                        <Form.Control type="password" name='newPassword' placeholder='New Password' className="textfield field" ref={register({ required: true })} />
+                                        <Form.Control type="password" name='confirmNewPassword' placeholder='Confirm New Password' className="textfield field" ref={register({ required: true })} />
+                                        <Button className='submit' type='submit'>Submit</Button>
+                                    </Form>
+                                </div>
+                            </Overlay>
+                        }
+                    </div>
+                }
+                {
+                    showEdit &&
+                    <div>
+                        <div className="profile zoom-m">
+                            <div ><img src={profilePic} className="profile-pic" alt="" /></div>
+                            <span className="person-name">{user.name}</span>
+                        </div>
+                        <FontAwesomeIcon icon={faArrowLeft} style={{ color: 'black' }} className="back-button zoom-m" onClick={() => (setshowDetails(true), setshowEdit(false))} />
+                        <Form onSubmit={handleSubmit(editdHandler)} autocomplete="off" >
+                            <Form.Group style={{ display: 'inline-flex', width: '100%', margin: '0 0% 1% 4%' }}>
+                                Name :<Form.Control type="text" name='oldPassword' placeholder='Old Password' className="textfield efield" ref={register({ required: true })} />
+                                Short Name :<Form.Control type="text" name='oldPassword' placeholder='Old Password' className="textfield efield" ref={register({ required: true })} style={{marginLeft:'3.5%'}}/>
+                            </Form.Group>
+                            <Form.Group style={{ display: 'inline-flex', width: '100%', margin: '0 0% 1% 4%' }}>
+                                UPI ID :<Form.Control type="text" name='oldPassword' placeholder='Old Password' className="textfield efield" ref={register({ required: true })} />
+                                Date of Birth :<Form.Control type="text" name='oldPassword' placeholder='Old Password' className="textfield efield" ref={register({ required: true })} style={{marginLeft:'2.5%'}}/>
+                            </Form.Group>
+                            <Form.Group style={{ display: 'inline-flex', width: '100%', margin: '0 0% 1% 4%' }}>
+                                Phone :<Form.Control type="text" name='oldPassword' placeholder='Old Password' className="textfield efield" ref={register({ required: true })} />
+                                Account Num :<Form.Control type="text" name='oldPassword' placeholder='Old Password' className="textfield efield" ref={register({ required: true })} />
+                            </Form.Group>
+                            <Button className='submit' type='submit'>Submit</Button>
+                        </Form>
+                    </div>
+                }
+            </div>
+        </div>
+    );
+}
+export default Profile;
+{/* <div>
                     {   
                         Object.keys(user).map((item, i) => (
                             <div>
@@ -69,8 +108,3 @@ function Profile(props) {
                         ))
                     }
                 </div> */}
-            </div>
-        </div>
-    );
-}
-export default Profile;

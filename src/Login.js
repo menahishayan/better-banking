@@ -15,7 +15,7 @@ function Login() {
     const [error, setError] = useState();
     const [signUp, setsignUp] = useState(false);
     const [login, setlogin] = useState("Login");
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const { register, handleSubmit, getValues } = useForm()
 
     const loginHandler = (d) => {

@@ -32,7 +32,7 @@ function Dashboard(props) {
         const getChartData = () => {
             let items = {}, arrayItems = []
 
-            user.history.forEach(his => {
+            user.history && user.history.forEach(his => {
                 if (items[his.category]) items[his.category].value += his.amount
                 else items[his.category] = { name: his.category[0].toUpperCase() + his.category.slice(1), value: his.amount }
             })
@@ -45,7 +45,7 @@ function Dashboard(props) {
         }
         const getRecentPersons = () => {
             setRecentPersons([])
-            user.history.forEach(his => {
+            user.history && user.history.forEach(his => {
                 if (his.type === 'person') {
                     db.getUser(his.accno, (user) =>
                         db.getProfilePic(his.accno, (url) => {
@@ -95,7 +95,7 @@ function Dashboard(props) {
                     <Chart chartData={chartData} />
                     <div className="history-list">
                         { //add txn id & to and from tracking on both sides
-                            user.history.map((item, i) => (
+                            user.history && user.history.map((item, i) => (
                                 <div className="history" key={i}>
                                     <div className="history-icon" style={{ backgroundColor: COLORS[i % COLORS.length] }}>{getCategoryIcon(item.category)}</div>
                                     <span className="history-name">{item.name || item.accno}</span>
@@ -108,22 +108,26 @@ function Dashboard(props) {
                 </div>
                 <div className="card-section">
                     <h1>Cards</h1>
-                    <Card card={user.cards[0]} />
+                    {user.cards &&
+                        <div>
+                            <Card card={user.cards[0]} />
+                        </div>
+                    }
                 </div>
 
             </div>
             { payOverlay &&
                 <Overlay visible={payOverlay} bgClick={() => setPayOverlay(!payOverlay)}>
                     <Form onSubmit={handleSubmit(payHandler)}>
-                            <PersonAvatar person={newPayment.person} inline />
+                        <PersonAvatar person={newPayment.person} inline />
                         <br />
                         <br />
                         <Form.Control type="number" name='amount' placeholder='Amount' className="textfield field" ref={register({ required: true })} />
                         <Form.Control type="text" name='description' placeholder='Message' className="textfield field" ref={register({ required: false })} />
-                        
-                        <div className="history-icon" style={{ backgroundColor:  'rgb(226, 225, 225)', color:'grey' }}>{<FontAwesomeIcon icon={faUtensils} />}</div>
-                        <div className="history-icon" style={{ backgroundColor:  'rgb(226, 225, 225)', color:'grey' }}>{<FontAwesomeIcon icon={faPlane} />}</div>
-                        <div className="history-icon" style={{ backgroundColor:  'rgb(226, 225, 225)', color:'grey' }}>{<FontAwesomeIcon icon={faShoppingBag} />}</div>
+
+                        <div className="history-icon" style={{ backgroundColor: 'rgb(226, 225, 225)', color: 'grey' }}>{<FontAwesomeIcon icon={faUtensils} />}</div>
+                        <div className="history-icon" style={{ backgroundColor: 'rgb(226, 225, 225)', color: 'grey' }}>{<FontAwesomeIcon icon={faPlane} />}</div>
+                        <div className="history-icon" style={{ backgroundColor: 'rgb(226, 225, 225)', color: 'grey' }}>{<FontAwesomeIcon icon={faShoppingBag} />}</div>
                         <br /><br /><br />
                         <Button type="submit" className='submit'>
                             {loading ? <Spinner
