@@ -78,9 +78,7 @@ class DB extends React.Component {
 						let ref = firebase.database().ref('/' + userProfile.accno);
 						ref.set(userProfile)
 						callback()
-					}).catch(function (error) {
-						console.log(error);
-					});
+					}).catch(err => console.log(err));
 				}
 			});
 
@@ -90,17 +88,22 @@ class DB extends React.Component {
 		});
 	}
 
-	edit = (callback) => {
-
+	edit = (accno, d, callback) => {
 		// firebase.auth().onAuthStateChanged((user) => {
 		// 	if (user) {
+		// 		console.log(user);
 		// 		user.updateProfile({
-		// 			displayName: userProfile.accno
+
 		// 		}).then(function () {
 		// 			console.log("success");
-		// 			let ref = firebase.database().ref('/' + userProfile.accno);
-		// 			ref.set(userProfile)
-		// 			callback()
+		console.log(d);
+		let ref = firebase.database().ref('/' + accno);
+		ref.update({
+			name: d.name,
+			shortname: d.shortname,
+			cards: []
+		})
+		callback && callback()
 		// 		}).catch(function (error) {
 		// 			console.log(error);
 		// 		});

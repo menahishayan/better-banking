@@ -27,14 +27,15 @@ function Profile(props) {
         })
     }, [])
     const passwordHandler = (d) => {
-        db.updatePass(user)
+        console.log("PASSWORD HANDLER");
+        db.updatePass(d)
     }
     const editdHandler = (d) => {
-        db.updatePass(user)
+        console.log("EDIT HANDLER");
+        db.edit(d)
     }
     if (redirect) return <Redirect push to={{ pathname: redirect, state: user }} />
 
-    console.log(user);
     return (
         <div>
             <FontAwesomeIcon icon={faArrowLeft} className="back-button zoom-m" onClick={() => setRedirect('/dashboard')} />
@@ -62,7 +63,7 @@ function Profile(props) {
                                         <Form.Control type="password" name='oldPassword' placeholder='Old Password' className="textfield field" ref={register({ required: true })} autocomplete="off" />
                                         <Form.Control type="password" name='newPassword' placeholder='New Password' className="textfield field" ref={register({ required: true })} />
                                         <Form.Control type="password" name='confirmNewPassword' placeholder='Confirm New Password' className="textfield field" ref={register({ required: true })} />
-                                        <Button className='submit' type='submit'>Submit</Button>
+                                        <Button className='submitProfile' type='submit'>Submit</Button>
                                     </Form>
                                 </div>
                             </Overlay>
@@ -71,7 +72,7 @@ function Profile(props) {
                 }
                 {
                     showEdit &&
-                    <div>
+                    <div visible={showEdit}>
                         <div className="profile zoom-m">
                             <div ><img src={profilePic} className="profile-pic" alt="" /></div>
                             <span className="person-name">{user.name}</span>
@@ -79,18 +80,18 @@ function Profile(props) {
                         <FontAwesomeIcon icon={faArrowLeft} style={{ color: 'black' }} className="back-button zoom-m" onClick={() => (setshowDetails(true), setshowEdit(false))} />
                         <Form onSubmit={handleSubmit(editdHandler)} autocomplete="off" >
                             <Form.Group style={{ display: 'inline-flex', width: '100%', margin: '0 0% 1% 4%' }}>
-                                Name :<Form.Control type="text" name='oldPassword' placeholder='Old Password' className="textfield efield" ref={register({ required: true })} />
-                                Short Name :<Form.Control type="text" name='oldPassword' placeholder='Old Password' className="textfield efield" ref={register({ required: true })} style={{marginLeft:'3.5%'}}/>
+                                Name :<Form.Control type="text" name='oldPassword' placeholder={user.name} className="textfield efield" ref={register({ required: false })} />
+                                Short Name :<Form.Control type="text" name='oldPassword' placeholder={user.shortname} className="textfield efield" ref={register({ required: false })} style={{ marginLeft: '3.5%' }} />
                             </Form.Group>
                             <Form.Group style={{ display: 'inline-flex', width: '100%', margin: '0 0% 1% 4%' }}>
-                                UPI ID :<Form.Control type="text" name='oldPassword' placeholder='Old Password' className="textfield efield" ref={register({ required: true })} />
-                                Date of Birth :<Form.Control type="text" name='oldPassword' placeholder='Old Password' className="textfield efield" ref={register({ required: true })} style={{marginLeft:'2.5%'}}/>
+                                UPI ID :<Form.Control type="text" name='oldPassword' placeholder={user.upi} className="textfield efield" ref={register({ required: false })} />
+                                Date of Birth :<Form.Control type="text" name='oldPassword' placeholder={user.dob} className="textfield efield" ref={register({ required: false })} style={{ marginLeft: '2.5%' }} />
                             </Form.Group>
                             <Form.Group style={{ display: 'inline-flex', width: '100%', margin: '0 0% 1% 4%' }}>
-                                Phone :<Form.Control type="text" name='oldPassword' placeholder='Old Password' className="textfield efield" ref={register({ required: true })} />
-                                Account Num :<Form.Control type="text" name='oldPassword' placeholder='Old Password' className="textfield efield" ref={register({ required: true })} />
+                                Phone :<Form.Control type="text" name='oldPassword' placeholder={user.phone} className="textfield efield" ref={register({ required: false })} />
+                                Account Num :<Form.Control type="text" name='oldPassword' placeholder={user.accno} className="textfield efield" ref={register({ required: false })} />
                             </Form.Group>
-                            <Button className='submit' type='submit'>Submit</Button>
+                            <Button className='submitProfile' type='submit' style={{width:'30%'}}>Submit</Button>
                         </Form>
                     </div>
                 }

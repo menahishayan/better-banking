@@ -70,7 +70,7 @@ function Login() {
                         <Form.Control type="password" name='confirm_password' placeholder='Confirm Password' className="textfield field" ref={register({ required: true })} />
                     </div>
                 }
-                <Button type="submit" className='submit'>
+                <Button type="submit" className='submitLogin'>
                     {loading ? <Spinner
                         as="span"
                         animation="border"
