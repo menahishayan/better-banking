@@ -13,8 +13,7 @@ class DB extends React.Component {
 		}
 	}
 	getUser = (accno, callback) => {
-		var count=0
-		if (count===0) {
+
 		let ref = firebase.database().ref('/' + accno);
 		ref.on('value', async (snapshot) => {
 			// var user = firebase.auth().currentUser;
@@ -29,7 +28,6 @@ class DB extends React.Component {
 			console.log("Get User");
 			callback && callback(await snapshot.val())
 		})
-	}
 	}
 	getProfilePic = (accno, callback) => {
 		let ref = firebase.storage().ref('dp/' + accno + '.jpg');
@@ -91,37 +89,22 @@ class DB extends React.Component {
 	}
 
 	edit = (accno, d, callback) => {
-		// let ref = firebase.database().ref('/' + accno);
 		console.log(accno);
-		var count=0
-		if (count===0) {
-			this.getUser(accno, (data)=>{
-				console.log(data);
-				var newData={
-					accno: data.accno,
-					balance: data.balance,
-					history:[],
-					name: d.name || data.name,
-					shortname: d.shortname || data.shortname,
-					upi: d.upi || data.upi,
-					dob: d.dob || data.dob,
-					phone: d.phone || data.phone,
-					cards: []
-				}
-				firebase.database().ref('/' + accno).update(newData,callback(newData))
-			})
-			++count
-			console.log(count);
-		}
-
-		// ref.update({
-		// 	name: d.name,
-		// 	shortname: d.shortname,
-		// 	upi: d.upi,
-		// 	dob: d.dob,
-		// 	phone: d.phone,
-		// 	cards: []
-		// })
+		this.getUser(accno, (data) => {
+			console.log(data);
+			var newData = {
+				accno: data.accno,
+				balance: data.balance,
+				history: [],
+				name: d.name || data.name,
+				shortname: d.shortname || data.shortname,
+				upi: d.upi || data.upi,
+				dob: d.dob || data.dob,
+				phone: d.phone || data.phone,
+				cards: []
+			}
+			firebase.database().ref('/' + accno).update(newData, callback(newData))
+		})
 	}
 
 	updatePass = (callback) => {
