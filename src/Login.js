@@ -23,8 +23,6 @@ function Login() {
         if (signUp) {
             db.createUser(d.email,d.password,(user) => {
                 console.log(user);
-                // setUser(user)
-                // setRedirect('/profile')
             })
         }
         else {
@@ -34,6 +32,14 @@ function Login() {
                 console.log(error.code);
             })
         }
+        db.loginFetch((user) => {
+            if (user) {
+                setUser(user);
+                setRedirect('/dashboard')
+            } else {
+                setLoading(false)
+            }
+        })
     }
 
     const loginCheck = () => {
@@ -46,15 +52,6 @@ function Login() {
             }
         })
     }
-
-    db.loginFetch((user) => {
-        if (user) {
-            setUser(user);
-            setRedirect('/dashboard')
-        } else {
-            setLoading(false)
-        }
-    })
 
     if (redirect) return <Redirect push to={{ pathname: redirect, state: user }} />
     return (
