@@ -12,7 +12,6 @@ class DB extends React.Component {
 			firebase.initializeApp(config);
 		}
 	}
-
 	getUser = (accno, callback) => {
 		let ref = firebase.database().ref('/' + accno);
 		ref.on('value', async (snapshot) => {
@@ -25,13 +24,14 @@ class DB extends React.Component {
 			// }).catch(function (error) {
 			// 	console.log(error);
 			// });
-			callback(await snapshot.val())
+			console.log("Get User");
+			callback && callback(await snapshot.val())
 		})
 
 	}
 	getProfilePic = (accno, callback) => {
 		let ref = firebase.storage().ref('dp/' + accno + '.jpg');
-		ref.getDownloadURL().then(callback).catch(err => console.log(err))
+		ref.getDownloadURL().then(callback).catch(err => console.log(err.code))
 	}
 
 	login = (email, pass, errorCallback) => {
@@ -53,7 +53,7 @@ class DB extends React.Component {
 			console.log(result);
 
 			const numbers = '1234567890'
-			let userID = ' '
+			let userID = ''
 			for (let i = 0; i < 13; ++i)
 				userID += numbers.charAt(Math.floor(Math.random() * numbers.length))
 
@@ -77,7 +77,7 @@ class DB extends React.Component {
 						console.log("success");
 						let ref = firebase.database().ref('/' + userProfile.accno);
 						ref.set(userProfile)
-						callback()
+						callback(user)
 					}).catch(err => console.log(err));
 				}
 			});
@@ -89,26 +89,37 @@ class DB extends React.Component {
 	}
 
 	edit = (accno, d, callback) => {
-		// firebase.auth().onAuthStateChanged((user) => {
-		// 	if (user) {
-		// 		console.log(user);
-		// 		user.updateProfile({
+		// let ref = firebase.database().ref('/' + accno);
+		console.log(accno);
+		var count=0
+		if (count==0) {
+			this.getUser(accno, (data)=>{
+				console.log(data);
+				var newData={
+					accno: data.accno,
+					balance: data.balance,
+					history:[],
+					name: d.name || data.name,
+					shortname: d.shortname || data.shortname,
+					upi: d.upi || data.upi,
+					dob: d.dob || data.dob,
+					phone: d.phone || data.phone,
+					cards: []
+				}
+				firebase.database().ref('/' + accno).update(newData,callback(newData))
+			})
+			++count
+			console.log(count);
+		}
 
-		// 		}).then(function () {
-		// 			console.log("success");
-		console.log(d);
-		let ref = firebase.database().ref('/' + accno);
-		ref.update({
-			name: d.name,
-			shortname: d.shortname,
-			cards: []
-		})
-		callback && callback()
-		// 		}).catch(function (error) {
-		// 			console.log(error);
-		// 		});
-		// 	}
-		// });
+		// ref.update({
+		// 	name: d.name,
+		// 	shortname: d.shortname,
+		// 	upi: d.upi,
+		// 	dob: d.dob,
+		// 	phone: d.phone,
+		// 	cards: []
+		// })
 	}
 
 	updatePass = (callback) => {
@@ -123,6 +134,8 @@ class DB extends React.Component {
 			}
 		});
 	}
+
+
 
 	logout = (callback) => {
 		firebase.auth().signOut().then(callback).catch(error => console.log(error));

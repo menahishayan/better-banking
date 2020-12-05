@@ -49,7 +49,8 @@ function Dashboard(props) {
                 if (his.type === 'person') {
                     db.getUser(his.accno, (user) =>
                         db.getProfilePic(his.accno, (url) => {
-                            setRecentPersons(r => [...r, { accno: user.accno, name: user.name, shortname: user.shortname, img: url }])
+                            console.log(url);
+                            // setRecentPersons(r => [...r, { accno: user.accno, name: user.name, shortname: user.shortname, img: url }])
                         })
                     )
                 }

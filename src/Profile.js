@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useForm } from "react-hook-form";
 import { faArrowLeft, faPencilAlt } from '@fortawesome/free-solid-svg-icons'
@@ -12,16 +12,19 @@ import { Overlay } from './Components'
 const db = new DB()
 
 function Profile(props) {
+    const [user, setUser] = useState(props.location.state);
     const [redirect, setRedirect] = useState();
     const [profilePic, setProfilePic] = useState();
     const [showEdit, setshowEdit] = useState(false);
-    const [showDetails, setshowDetails] = useState(true);
+    // const [showDetails, setshowDetails] = useState(true);
     const [changePassword, setchangePassword] = useState(false);
     const { register, handleSubmit } = useForm()
     const [error, setError] = useState();
+    const history = useHistory()
 
-    var user = props.location.state;
     useEffect(() => {
+        console.log("USEEFFECT");
+
         db.getProfilePic(user.accno, (url) => {
             setProfilePic(url)
         })
@@ -30,10 +33,22 @@ function Profile(props) {
         console.log("PASSWORD HANDLER");
         db.updatePass(d)
     }
+
     const editdHandler = (d) => {
         console.log("EDIT HANDLER");
-        db.edit(d)
+        db.edit(user.accno, d, (u) => {
+                console.log(u);
+                setUser(u)
+                setshowEdit(false)
+        })
+        // setRedirect('/profile')
+
+        // user = props.location.state;
+        // console.log(user);
+
+        // history.go(0)
     }
+
     if (redirect) return <Redirect push to={{ pathname: redirect, state: user }} />
 
     return (
@@ -42,12 +57,12 @@ function Profile(props) {
             <div className='profile-back'> &nbsp;</div>
             <div className='profile-subcontent'>
                 {
-                    showDetails && <div>
+                    !showEdit ? <div>
                         <div className="profile zoom-m">
                             <div ><img src={profilePic} className="profile-pic" alt="" /></div>
                             <span className="person-name">{user.name}</span>
                         </div><br />
-                        <div className='edit zoom-m' onClick={() => (setshowDetails(false), setshowEdit(true))}><FontAwesomeIcon icon={faPencilAlt} /></div>
+                        <div className='edit zoom-m' onClick={() => (setshowEdit(true))}><FontAwesomeIcon icon={faPencilAlt} /></div>
                         <div className='info'><b>Short Name :</b> {user.shortname}</div>
                         <div className='info'><b>Account Number:</b> {user.accno}</div>
                         <div className='info'><b>Date of Birth :</b> {user.dob}</div>
@@ -68,30 +83,27 @@ function Profile(props) {
                                 </div>
                             </Overlay>
                         }
-                    </div>
-                }
-                {
-                    showEdit &&
+                    </div>:
                     <div visible={showEdit}>
                         <div className="profile zoom-m">
                             <div ><img src={profilePic} className="profile-pic" alt="" /></div>
                             <span className="person-name">{user.name}</span>
                         </div>
-                        <FontAwesomeIcon icon={faArrowLeft} style={{ color: 'black' }} className="back-button zoom-m" onClick={() => (setshowDetails(true), setshowEdit(false))} />
+                        <FontAwesomeIcon icon={faArrowLeft} style={{ color: 'black' }} className="back-button zoom-m" onClick={() => (setshowEdit(false))} />
                         <Form onSubmit={handleSubmit(editdHandler)} autocomplete="off" >
                             <Form.Group style={{ display: 'inline-flex', width: '100%', margin: '0 0% 1% 4%' }}>
-                                Name :<Form.Control type="text" name='oldPassword' placeholder={user.name} className="textfield efield" ref={register({ required: false })} />
-                                Short Name :<Form.Control type="text" name='oldPassword' placeholder={user.shortname} className="textfield efield" ref={register({ required: false })} style={{ marginLeft: '3.5%' }} />
+                                Name :<Form.Control type="text" name='name' placeholder={user.name} className="textfield efield" ref={register({ required: false })} />
+                                Short Name :<Form.Control type="text" name='shortname' placeholder={user.shortname} className="textfield efield" ref={register({ required: false })} style={{ marginLeft: '3.5%' }} />
                             </Form.Group>
                             <Form.Group style={{ display: 'inline-flex', width: '100%', margin: '0 0% 1% 4%' }}>
-                                UPI ID :<Form.Control type="text" name='oldPassword' placeholder={user.upi} className="textfield efield" ref={register({ required: false })} />
-                                Date of Birth :<Form.Control type="text" name='oldPassword' placeholder={user.dob} className="textfield efield" ref={register({ required: false })} style={{ marginLeft: '2.5%' }} />
+                                UPI ID :<Form.Control type="text" name='upi' placeholder={user.upi} className="textfield efield" ref={register({ required: false })} />
+                                Date of Birth :<Form.Control type="text" name='dob' placeholder={user.dob} className="textfield efield" ref={register({ required: false })} style={{ marginLeft: '2.5%' }} />
                             </Form.Group>
                             <Form.Group style={{ display: 'inline-flex', width: '100%', margin: '0 0% 1% 4%' }}>
-                                Phone :<Form.Control type="text" name='oldPassword' placeholder={user.phone} className="textfield efield" ref={register({ required: false })} />
-                                Account Num :<Form.Control type="text" name='oldPassword' placeholder={user.accno} className="textfield efield" ref={register({ required: false })} />
+                                Phone :<Form.Control type="text" name='phone' placeholder={user.phone} className="textfield efield" ref={register({ required: false })} />
+                                {/* Account Num :<Form.Control type="text" name='oldPassword' placeholder={user.accno} className="textfield efield" ref={register({ required: false })} /> */}
                             </Form.Group>
-                            <Button className='submitProfile' type='submit' style={{width:'30%'}}>Submit</Button>
+                            <Button className='submitProfile' type='submit' style={{ width: '30%' }}>Submit</Button>
                         </Form>
                     </div>
                 }
