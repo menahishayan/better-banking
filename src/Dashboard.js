@@ -50,7 +50,7 @@ function Dashboard(props) {
                     db.getUser(his.accno, (user) =>
                         db.getProfilePic(his.accno, (url) => {
                             console.log(url);
-                            // setRecentPersons(r => [...r, { accno: user.accno, name: user.name, shortname: user.shortname, img: url }])
+                            setRecentPersons(r => [...r, { accno: user.accno, name: user.name, shortname: user.shortname, img: url }])
                         })
                     )
                 }
