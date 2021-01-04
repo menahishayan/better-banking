@@ -21,6 +21,7 @@ function Dashboard(props) {
     const [newPayment, setNewPayment] = useState();
     const [error, setError] = useState();
     const [loading, setLoading] = useState(false);
+    const [history, setHistory] = useState(false);
     const { register, handleSubmit } = useForm()
 
     var user = props.location.state
@@ -32,7 +33,7 @@ function Dashboard(props) {
         const getChartData = () => {
             let items = {}, arrayItems = []
 
-            user.history && user.history.forEach(his => {
+            history && history.forEach(his => {
                 if (items[his.category]) items[his.category].value += his.amount
                 else items[his.category] = { name: his.category[0].toUpperCase() + his.category.slice(1), value: his.amount }
             })
@@ -45,12 +46,12 @@ function Dashboard(props) {
         }
         const getRecentPersons = () => {
             setRecentPersons([])
-            user.history && user.history.forEach(his => {
+            history && history.forEach(his => {
                 if (his.type === 'person') {
-                    db.getUser(his.accno, (user) =>
-                        db.getProfilePic(his.accno, (url) => {
+                    db.getUser(his.to, (user) =>
+                        db.getProfilePic(his.to, (url) => {
                             console.log(url);
-                            setRecentPersons(r => [...r, { accno: user.accno, name: user.name, shortname: user.shortname, img: url }])
+                            setRecentPersons(r => [...r, { to: user.to, name: user.name, shortname: user.shortname, img: url }])
                         })
                     )
                 }
@@ -58,6 +59,10 @@ function Dashboard(props) {
         }
         getChartData()
         getRecentPersons()
+        db.getTransactions(user.history, transactions => {
+            setHistory(transactions)
+        })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user.accno, user.history])
 
     const payHandler = (d) => {
@@ -96,10 +101,10 @@ function Dashboard(props) {
                     <Chart chartData={chartData} />
                     <div className="history-list">
                         { //add txn id & to and from tracking on both sides
-                            user.history && user.history.map((item, i) => (
+                            history && history.map((item, i) => (
                                 <div className="history" key={i}>
                                     <div className="history-icon" style={{ backgroundColor: COLORS[i % COLORS.length] }}>{getCategoryIcon(item.category)}</div>
-                                    <span className="history-name">{item.name || item.accno}</span>
+                                    <span className="history-name">{item.name || item.to}</span>
                                     <span className="history-description">{item.description}</span>
                                     <span className="history-amount amount">{item.amount}</span>
                                 </div>

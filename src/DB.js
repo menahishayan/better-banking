@@ -13,8 +13,7 @@ class DB extends React.Component {
 		}
 	}
 	getUser = (accno, callback) => {
-
-		let ref = firebase.database().ref('/' + accno);
+		let ref = firebase.database().ref('/users/' + accno);
 		ref.on('value', async (snapshot) => {
 			// var user = firebase.auth().currentUser;
 			// var data = await snapshot.val()
@@ -75,7 +74,7 @@ class DB extends React.Component {
 						displayName: userProfile.accno
 					}).then(function () {
 						console.log("success");
-						let ref = firebase.database().ref('/' + userProfile.accno);
+						let ref = firebase.database().ref('/users/' + userProfile.accno);
 						ref.set(userProfile)
 						callback(user)
 					}).catch(err => console.log(err));
@@ -86,6 +85,18 @@ class DB extends React.Component {
 			console.log("Error");
 			console.log(error.message);
 		});
+	}
+
+	getTransactions = (ids, callback) => {
+		let ref = firebase.database().ref('/transactions');
+		ref.on('value', async (snapshot) => {
+			let list = []
+			let data  = await snapshot.val();
+
+			for (let d in data) if(ids.includes(d)) list.push(data[d])
+
+			callback && callback(list)
+		})
 	}
 
 	edit = (accno, d, callback) => {
@@ -103,7 +114,7 @@ class DB extends React.Component {
 				phone: d.phone || data.phone,
 				cards: []
 			}
-			firebase.database().ref('/' + accno).update(newData, callback(newData))
+			firebase.database().ref('/users/' + accno).update(newData, callback(newData))
 		})
 	}
 
@@ -119,8 +130,6 @@ class DB extends React.Component {
 			}
 		});
 	}
-
-
 
 	logout = (callback) => {
 		firebase.auth().signOut().then(callback).catch(error => console.log(error));

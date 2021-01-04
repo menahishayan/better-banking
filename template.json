@@ -1,157 +1,225 @@
 {
-  "2141448714878" : {
-    "accno" : "2141448714878",
-    "balance" : 20900,
-    "cards" : [ {
-      "cvv" : 654,
-      "expiry" : "2021-02",
-      "name" : "Podaralla Revathi",
-      "number" : "4591 4030 8962 7896",
-      "provider" : "visa",
-      "type" : "credit"
-    } ],
-    "history" : [ {
-      "amount" : 950,
-      "category" : "food",
-      "date" : "2020-06-06",
-      "description" : "Kormangala",
-      "name" : "Al Bek",
-      "type" : "store"
-    }, {
-      "amount" : 795,
-      "category" : "travel",
-      "date" : "2020-01-23",
-      "description" : "wickedride",
-      "name" : "param",
-      "type" : "store"
-    }, {
-      "amount" : 775,
-      "category" : "travel",
-      "date" : "2020-01-23",
-      "description" : "Bounce",
-      "accno" : "0192319023103",
-      "name" : "Menahi Shayan",
-      "type" : "person"
-    }, {
-      "amount" : 623,
-      "category" : "food",
-      "date" : "2020-04-23",
-      "description" : "Arekere, Bannerghatta Road",
-      "name" : "Pizza Hut",
-      "type" : "store"
-    } ],
-    "name" : "Podaralla Revathi",
-    "shortname" : "Revathi"
-  },
-  "6292656562225" : {
-    "accno" : "6292656562225",
-    "balance" : 67970,
-    "cards" : [ {
-      "cvv" : 906,
-      "expiry" : "2024-08",
-      "name" : "Nishank Swamy",
-      "number" : "4591 5204 8472 1225",
-      "provider" : "visa",
-      "type" : "debit"
-    } ],
-    "history" : [ {
-      "amount" : 570,
-      "category" : "party",
-      "date" : "2020-08-12",
-      "description" : "Indiranagar",
-      "name" : "BREW",
-      "type" : "store"
-    }, {
-      "amount" : 999,
-      "category" : "travel",
-      "date" : "2020-11-01",
-      "description" : "Flight",
-      "name" : "SPICEJET",
-      "type" : "person"
-    }, {
-      "amount" : 775,
-      "category" : "travel",
-      "date" : "2020-01-23",
-      "description" : "Bounce",
-      "accno" : "0192319023103",
-      "name" : "Menahi Shayan",
-      "type" : "person"
-    }, {
-      "amount" : 623,
-      "category" : "food",
-      "date" : "2020-04-23",
-      "description" : "Arekere, Bannerghatta Road",
-      "name" : "Pizza Hut",
-      "type" : "store"
-    },{
-      "amount" : 4251.6,
-      "category" : "shopping",
-      "date" : "2020-01-03",
-      "description" : "Myntra",
-      "accno" : "2141448714878",
+  "users": {
+    "2141448714878": {
+      "accno": "2141448714878",
+      "balance": 20900,
+      "cards": [
+        {
+          "cvv": 654,
+          "expiry": "2021-02",
+          "name": "Podaralla Revathi",
+          "number": "4591 4030 8962 7896",
+          "provider": "visa",
+          "type": "credit"
+        }
+      ],
+      "history": [
+        "i3oPGadQkf",
+        "Z5O9ywSYb8",
+        "HhwoBlagYg",
+        "y0i3py1tbU"
+      ],
       "name": "Podaralla Revathi",
-      "type" : "person"
-    }, {
-      "amount" : 284,
-      "category" : "shopping",
-      "date" : "2020-04-07",
-      "description" : "Online Purchase",
-      "name" : "Amazon",
-      "type" : "store"
-    }  ],
-    "name" : "Nishank Swamy",
-    "shortname" : "Nishank"
+      "shortname": "Revathi"
+    },
+    "6292656562225": {
+      "accno": "6292656562225",
+      "balance": 67970,
+      "cards": [
+        {
+          "cvv": 906,
+          "expiry": "2024-08",
+          "name": "Nishank Swamy",
+          "number": "4591 5204 8472 1225",
+          "provider": "visa",
+          "type": "debit"
+        }
+      ],
+      "history": [
+        "yHBXEel8hu",
+        "PXUPJKcNQe",
+        "VEqXPTNa6Z",
+        "2FMKWS7Hli",
+        "3xiQusjXOm",
+        "O7NPtQwjqR"
+      ],
+      "name": "Nishank Swamy",
+      "shortname": "Nishank"
+    },
+    "0192319023103": {
+      "accno": "0192319023103",
+      "balance": 10000,
+      "cards": [
+        {
+          "cvv": 354,
+          "expiry": "2022-05",
+          "name": "Menahi Shayan",
+          "number": "4591 5000 5432 6535",
+          "provider": "visa",
+          "type": "credit"
+        }
+      ],
+      "history": [
+        "s8NR4xxrfq",
+        "da5R3Y79va",
+        "ctYc576OlD",
+        "KnVVAUsziY",
+        "MmW7q7Rlhu"
+      ],
+      "name": "Menahi Shayan",
+      "shortname": "Shayan"
+    }
   },
-  "0192319023103" : {
-    "accno" : "0192319023103",
-    "balance" : 10000,
-    "cards" : [ {
-      "cvv" : 354,
-      "expiry" : "2022-05",
-      "name" : "Menahi Shayan",
-      "number" : "4591 5000 5432 6535",
-      "provider" : "visa",
-      "type" : "credit"
-    } ],
-    "history" : [ {
-      "amount" : 675.5,
-      "category" : "food",
-      "date" : "2020-05-01",
-      "description" : "Kormangala",
-      "name" : "KFC",
-      "type" : "store"
-    }, {
-      "amount" : 775,
-      "category" : "travel",
-      "date" : "2020-01-23",
-      "description" : "Bounce",
-      "accno" : "6292656562225",
-      "name" : "Nishank Swamy",
-      "type" : "person"
-    }, {
-      "amount" : 623,
-      "category" : "food",
-      "date" : "2020-04-23",
-      "description" : "Arekere, Bannerghatta Road",
-      "name" : "Pizza Hut",
-      "type" : "store"
-    },{
-      "amount" : 4251.6,
-      "category" : "shopping",
-      "date" : "2020-01-03",
-      "description" : "Myntra",
-      "accno" : "2141448714878",
-      "name" : "Podaralla Revathi",
-      "type" : "person"
-    }, {
-      "amount" : 284,
-      "category" : "shopping",
-      "date" : "2020-04-07",
-      "description" : "Online Purchase",
-      "name" : "Amazon",
-      "type" : "store"
-    } ],
-    "name" : "Menahi Shayan",
-    "shortname" : "Shayan"
+  "transactions": {
+    "i3oPGadQkf" : {
+      "from": "2141448714878",
+      "to": "6342542643345",
+      "amount": 950,
+      "category": "food",
+      "date": "2020-06-06",
+      "description": "Kormangala",
+      "name": "Al Bek",
+      "type": "store"
+    },
+    "Z5O9ywSYb8": {
+      "from": "2141448714878",
+      "to": "3948593745732",
+      "amount": 795,
+      "category": "travel",
+      "date": "2020-01-23",
+      "description": "wickedride",
+      "name": "param",
+      "type": "store"
+    },
+    "HhwoBlagYg": {
+      "from": "2141448714878",
+      "amount": 775,
+      "category": "travel",
+      "date": "2020-01-23",
+      "description": "Bounce",
+      "to": "0192319023103",
+      "name": "Menahi Shayan",
+      "type": "person"
+    },
+    "y0i3py1tbU": {
+      "from": "2141448714878",
+      "to": "2873487252143",
+      "amount": 623,
+      "category": "food",
+      "date": "2020-04-23",
+      "description": "Arekere, Bannerghatta Road",
+      "name": "Pizza Hut",
+      "type": "store"
+    },
+    "yHBXEel8hu": {
+      "from": "6292656562225",
+      "to": "8347596324942",
+      "amount": 570,
+      "category": "Party",
+      "date": "2020-08-12",
+      "description": "Indiranagar",
+      "name": "BREW",
+      "type": "store"
+    },
+    "PXUPJKcNQe": {
+      "from": "6292656562225",
+      "to": "9978734577342",
+      "amount": 999,
+      "category": "travel",
+      "date": "2020-11-01",
+      "description": "Flight",
+      "name": "SPICEJET",
+      "type": "store"
+    },
+    "VEqXPTNa6Z": {
+      "from": "6292656562225",
+      "amount": 775,
+      "category": "travel",
+      "date": "2020-01-23",
+      "description": "Bounce",
+      "to": "0192319023103",
+      "name": "Menahi Shayan",
+      "type": "person"
+    },
+    "2FMKWS7Hli": {
+      "from": "6292656562225",
+      "to": "2873487252143",
+      "amount": 623,
+      "category": "food",
+      "date": "2020-04-23",
+      "description": "Arekere, Bannerghatta Road",
+      "name": "Pizza Hut",
+      "type": "store"
+    },
+    "3xiQusjXOm": {
+      "from": "6292656562225",
+      "amount": 4251.6,
+      "category": "shopping",
+      "date": "2020-01-03",
+      "description": "Myntra",
+      "to": "2141448714878",
+      "name": "Podaralla Revathi",
+      "type": "person"
+    },
+    "O7NPtQwjqR": {
+      "from": "6292656562225",
+      "to": "7287364823421",
+      "amount": 284,
+      "category": "shopping",
+      "date": "2020-04-07",
+      "description": "Online Purchase",
+      "name": "Amazon",
+      "type": "store"
+    },
+    "s8NR4xxrfq": {
+      "from": "0192319023103",
+      "to": "4234853253145",
+      "amount": 675.5,
+      "category": "food",
+      "date": "2020-05-01",
+      "description": "Kormangala",
+      "name": "KFC",
+      "type": "store"
+    },
+    "da5R3Y79va": {
+      "from": "0192319023103",
+      "amount": 775,
+      "category": "travel",
+      "date": "2020-01-23",
+      "description": "Bounce",
+      "to": "6292656562225",
+      "name": "Nishank Swamy",
+      "type": "person"
+    },
+    "ctYc576OlD": {
+      "from": "0192319023103",
+      "to": "2873487252143",
+      "amount": 623,
+      "category": "food",
+      "date": "2020-04-23",
+      "description": "Arekere, Bannerghatta Road",
+      "name": "Pizza Hut",
+      "type": "store"
+    },
+    "KnVVAUsziY": {
+      "from": "0192319023103",
+      "amount": 4251.6,
+      "category": "shopping",
+      "date": "2020-01-03",
+      "description": "Myntra",
+      "to": "2141448714878",
+      "name": "Podaralla Revathi",
+      "type": "person"
+    },
+    "MmW7q7Rlhu": {
+      "from": "0192319023103",
+      "to": "7287364823421",
+      "amount": 284,
+      "category": "shopping",
+      "date": "2020-04-07",
+      "description": "Online Purchase",
+      "name": "Amazon",
+      "type": "store"
+    }
   }
 }
