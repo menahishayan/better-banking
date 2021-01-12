@@ -38,6 +38,22 @@
     content: '\20B9';
 }
 
+.neg-amount {
+    color: #9c0808;
+}
+
+.neg-amount::before {
+    content: '-\20B9';
+}
+
+.pos-amount {
+    color: #0d5c09;
+}
+
+.pos-amount::before {
+    content: '+\20B9';
+}
+
 .balance {
     font-size: 48px;
     margin: 4%;

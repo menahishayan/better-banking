@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
 import { Redirect } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft, faUtensils, faPlane, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faUtensils, faPlane, faShoppingBag, faReceipt, faFilm, faHandHoldingMedical, faCubes } from '@fortawesome/free-solid-svg-icons'
 import DB from './DB'
 import { Overlay, Chart, Card, PersonAvatar, COLORS } from './Components'
 
@@ -30,10 +30,10 @@ function Dashboard(props) {
         db.getProfilePic(user.accno, (url) => {
             setProfilePic(url)
         })
-        const getChartData = () => {
+        const getChartData = (transactions) => {
             let items = {}, arrayItems = []
 
-            history && history.forEach(his => {
+            transactions.forEach(his => {
                 if (items[his.category]) items[his.category].value += his.amount
                 else items[his.category] = { name: his.category[0].toUpperCase() + his.category.slice(1), value: his.amount }
             })
@@ -44,25 +44,29 @@ function Dashboard(props) {
 
             setChartData(arrayItems);
         }
-        const getRecentPersons = () => {
+        const getRecentPersons = (transactions) => {
+            var recentPersonsSet = {}
             setRecentPersons([])
-            history && history.forEach(his => {
+            transactions.forEach(his => {
                 if (his.type === 'person') {
                     db.getUser(his.to, (user) =>
                         db.getProfilePic(his.to, (url) => {
-                            console.log(url);
-                            setRecentPersons(r => [...r, { to: user.to, name: user.name, shortname: user.shortname, img: url }])
+                            recentPersonsSet[user.accno] = { to: user.accno, name: user.name, shortname: user.shortname, img: url }
+                            for( let rpsIndex in recentPersonsSet) {
+                                console.log(rpsIndex);
+                                setRecentPersons(r => [...new Set([...r,recentPersonsSet[rpsIndex]])])
+                            }
                         })
                     )
                 }
             })
         }
-        getChartData()
-        getRecentPersons()
-        db.getTransactions(user.history, transactions => {
+        db.getTransactions(user.accno, user.history, transactions => {
             setHistory(transactions)
+            getChartData(transactions)
+            getRecentPersons(transactions)
         })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user.accno, user.history])
 
     const payHandler = (d) => {
@@ -89,7 +93,7 @@ function Dashboard(props) {
                 <span className="balance amount">{user.balance.toFixed(2)}</span>
                 <div className="recents">
                     {
-                        recentPersons && recentPersons.map((person, p) =>
+                        recentPersons.length > 1  && recentPersons.map((person, p) =>
                             <Fragment key={p}><PersonAvatar person={person} onClick={() => { setPayOverlay(true); setNewPayment({ person }) }} /></Fragment>
                         )
                     }
@@ -106,7 +110,10 @@ function Dashboard(props) {
                                     <div className="history-icon" style={{ backgroundColor: COLORS[i % COLORS.length] }}>{getCategoryIcon(item.category)}</div>
                                     <span className="history-name">{item.name || item.to}</span>
                                     <span className="history-description">{item.description}</span>
-                                    <span className="history-amount amount">{item.amount}</span>
+                                    {
+                                        item.to === user.accno ?
+                                            <span className="history-amount pos-amount">{item.amount}</span> : <span className="history-amount neg-amount">{item.amount}</span>
+                                    }
                                 </div>
                             ))
                         }

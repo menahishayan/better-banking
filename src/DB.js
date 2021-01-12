@@ -87,13 +87,24 @@ class DB extends React.Component {
 		});
 	}
 
-	getTransactions = (ids, callback) => {
+	getTransactions = (accno, ids, callback) => {
 		let ref = firebase.database().ref('/transactions');
 		ref.on('value', async (snapshot) => {
 			let list = []
 			let data  = await snapshot.val();
 
-			for (let d in data) if(ids.includes(d)) list.push(data[d])
+			for (let d in data) 
+				if(ids.includes(d)) {
+					console.log(data[d].to, data[d].from);
+					if(data[d].from === accno) ;
+						// data[d].amount = -data[d].amount
+					else {
+						// let swap = data[d].to
+						// data[d].to = data[d].from
+						// data[d].from = swap
+					}
+					list.push(data[d])
+				}
 
 			callback && callback(list)
 		})
