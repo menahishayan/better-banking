@@ -138,9 +138,13 @@ function Dashboard(props) {
                         <Form.Control type="number" name='amount' placeholder='Amount' className="textfield field" ref={register({ required: true })} />
                         <Form.Control type="text" name='description' placeholder='Message' className="textfield field" ref={register({ required: false })} />
 
-                        <div className="history-icon" style={{ backgroundColor: 'rgb(226, 225, 225)', color: 'grey' }}>{<FontAwesomeIcon icon={faUtensils} />}</div>
-                        <div className="history-icon" style={{ backgroundColor: 'rgb(226, 225, 225)', color: 'grey' }}>{<FontAwesomeIcon icon={faPlane} />}</div>
-                        <div className="history-icon" style={{ backgroundColor: 'rgb(226, 225, 225)', color: 'grey' }}>{<FontAwesomeIcon icon={faShoppingBag} />}</div>
+                        <div className="history-icon" style={{ backgroundColor: 'rgb(226, 225, 225)', color: 'grey', marginLeft:'2%', marginRight: '2%' }}>{<FontAwesomeIcon icon={faUtensils} />}</div>
+                        <div className="history-icon" style={{ backgroundColor: 'rgb(226, 225, 225)', color: 'grey', marginLeft:'2%', marginRight: '2%' }}>{<FontAwesomeIcon icon={faPlane} />}</div>
+                        <div className="history-icon" style={{ backgroundColor: 'rgb(226, 225, 225)', color: 'grey', marginLeft:'2%', marginRight: '2%' }}>{<FontAwesomeIcon icon={faShoppingBag} />}</div>
+                        <div className="history-icon" style={{ backgroundColor: 'rgb(226, 225, 225)', color: 'grey', marginLeft:'2%', marginRight: '2%' }}>{<FontAwesomeIcon icon={faHandHoldingMedical} />}</div>
+                        <div className="history-icon" style={{ backgroundColor: 'rgb(226, 225, 225)', color: 'grey', marginLeft:'2%', marginRight: '2%' }}>{<FontAwesomeIcon icon={faFilm} />}</div>
+                        <div className="history-icon" style={{ backgroundColor: 'rgb(226, 225, 225)', color: 'grey', marginLeft:'2%', marginRight: '2%' }}>{<FontAwesomeIcon icon={faReceipt} />}</div>
+                        <div className="history-icon" style={{ backgroundColor: 'rgb(226, 225, 225)', color: 'grey', marginLeft:'2%', marginRight: '2%' }}>{<FontAwesomeIcon icon={faCubes} />}</div>
                         <br /><br /><br />
                         <Button type="submit" className='submit'>
                             {loading ? <Spinner
