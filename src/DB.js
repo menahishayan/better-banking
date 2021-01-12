@@ -95,13 +95,10 @@ class DB extends React.Component {
 
 			for (let d in data) 
 				if(ids.includes(d)) {
-					console.log(data[d].to, data[d].from);
-					if(data[d].from === accno) ;
-						// data[d].amount = -data[d].amount
-					else {
-						// let swap = data[d].to
-						// data[d].to = data[d].from
-						// data[d].from = swap
+					if(data[d].to === accno) {
+						this.getUser(data[d].from, user => {
+							data[d].name = user.name
+						})
 					}
 					list.push(data[d])
 				}

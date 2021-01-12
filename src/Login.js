@@ -49,6 +49,9 @@ function Login() {
             if(error.code==='auth/user-not-found'){
                 setsignUp(true)
                 setlogin("Sign Up")
+            } else {
+                setsignUp(false)
+                setlogin("Login")
             }
         })
     }

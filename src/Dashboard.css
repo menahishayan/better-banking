@@ -129,6 +129,35 @@
     color: white;
 }
 
+.pay-category-icon {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: rgb(226, 225, 225);
+    display: inline-block;
+    margin: 0 1.5%;
+    padding: 10px 0;
+    text-align: center;
+    color: grey;
+    font-size: larger;
+}
+
+.selected-pay-category {
+    background-color:#0088FE;
+    color: white;
+}
+
+.pay-amount {
+    font-weight: bold;
+    font-size: 30px;
+    position: relative;
+    text-align: center;
+}
+
+.pay-amount::before {
+    content: '\20B9';
+}
+
 .history-name {
     font-weight: bold;
     color: #444;

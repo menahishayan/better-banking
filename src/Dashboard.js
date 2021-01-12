@@ -19,6 +19,7 @@ function Dashboard(props) {
     const [profilePic, setProfilePic] = useState();
     const [payOverlay, setPayOverlay] = useState();
     const [newPayment, setNewPayment] = useState();
+    const [selectedCategory, setSelectedCategory] = useState();
     const [error, setError] = useState();
     const [loading, setLoading] = useState(false);
     const [history, setHistory] = useState(false);
@@ -49,13 +50,14 @@ function Dashboard(props) {
             setRecentPersons([])
             transactions.forEach(his => {
                 if (his.type === 'person') {
-                    db.getUser(his.to, (user) =>
-                        db.getProfilePic(his.to, (url) => {
-                            recentPersonsSet[user.accno] = { to: user.accno, name: user.name, shortname: user.shortname, img: url }
-                            for( let rpsIndex in recentPersonsSet) {
-                                console.log(rpsIndex);
-                                setRecentPersons(r => [...new Set([...r,recentPersonsSet[rpsIndex]])])
+                    db.getUser(his.to !== user.accno ? his.to : his.from, (u) =>
+                        db.getProfilePic(his.to !== user.accno ? his.to : his.from, (url) => {
+                            recentPersonsSet[u.accno] = { to: u.accno, name: u.name, shortname: u.shortname, img: url }
+                            let tempArray = []
+                            for (let rps in recentPersonsSet) {
+                                tempArray.push(recentPersonsSet[rps])
                             }
+                            setRecentPersons(tempArray)
                         })
                     )
                 }
@@ -80,6 +82,12 @@ function Dashboard(props) {
             case 'shopping': return <FontAwesomeIcon icon={faShoppingBag} />
             default: return ''
         }
+    }
+
+    const preParsePayAmount = (e) => {
+        let amount = e.target.value
+        if(isNaN(amount)) console.log("not");
+        else console.log("num");
     }
 
     if (redirect) return <Redirect push to={{ pathname: redirect, state: user }} />
@@ -135,16 +143,15 @@ function Dashboard(props) {
                         <PersonAvatar person={newPayment.person} inline />
                         <br />
                         <br />
-                        <Form.Control type="number" name='amount' placeholder='Amount' className="textfield field" ref={register({ required: true })} />
-                        <Form.Control type="text" name='description' placeholder='Message' className="textfield field" ref={register({ required: false })} />
+                        <Form.Control type="number" name='amount' placeholder='0' className="field pay-amount" ref={register({ required: true })} onBlur={preParsePayAmount} />
+                        <Form.Control type="text" name='description' placeholder='Message' className="field" style={{textAlign: 'center'}} ref={register({ required: false})} />
 
-                        <div className="history-icon" style={{ backgroundColor: 'rgb(226, 225, 225)', color: 'grey', marginLeft:'2%', marginRight: '2%' }}>{<FontAwesomeIcon icon={faUtensils} />}</div>
-                        <div className="history-icon" style={{ backgroundColor: 'rgb(226, 225, 225)', color: 'grey', marginLeft:'2%', marginRight: '2%' }}>{<FontAwesomeIcon icon={faPlane} />}</div>
-                        <div className="history-icon" style={{ backgroundColor: 'rgb(226, 225, 225)', color: 'grey', marginLeft:'2%', marginRight: '2%' }}>{<FontAwesomeIcon icon={faShoppingBag} />}</div>
-                        <div className="history-icon" style={{ backgroundColor: 'rgb(226, 225, 225)', color: 'grey', marginLeft:'2%', marginRight: '2%' }}>{<FontAwesomeIcon icon={faHandHoldingMedical} />}</div>
-                        <div className="history-icon" style={{ backgroundColor: 'rgb(226, 225, 225)', color: 'grey', marginLeft:'2%', marginRight: '2%' }}>{<FontAwesomeIcon icon={faFilm} />}</div>
-                        <div className="history-icon" style={{ backgroundColor: 'rgb(226, 225, 225)', color: 'grey', marginLeft:'2%', marginRight: '2%' }}>{<FontAwesomeIcon icon={faReceipt} />}</div>
-                        <div className="history-icon" style={{ backgroundColor: 'rgb(226, 225, 225)', color: 'grey', marginLeft:'2%', marginRight: '2%' }}>{<FontAwesomeIcon icon={faCubes} />}</div>
+                        {
+                            [faUtensils,faPlane,faShoppingBag,faHandHoldingMedical,faFilm,faReceipt,faCubes].map((item,i) => 
+                                <div key={i} className={`pay-category-icon ${selectedCategory === item ? "selected-pay-category" : ""}`} onClick={() => setSelectedCategory(item)}><FontAwesomeIcon icon={item} /></div>
+                            )
+                        }
+
                         <br /><br /><br />
                         <Button type="submit" className='submit'>
                             {loading ? <Spinner
