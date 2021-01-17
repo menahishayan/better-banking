@@ -71,8 +71,22 @@ function Dashboard(props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user.accno, user.history])
 
+
+    const accnoCheck = (e) => {
+        let accno = e.target.value
+        if(!accno) setError('Please enter an account number')
+        else if (accno.length < 13) setError('Please enter a valid account number')
+        else setError('')
+    }
+
+    const amountCheck = (e) => {
+        let amount = e.target.value
+        if(!amount) setError('Please enter a valid amount')
+        else setError('')
+    }
+
     const payHandler = (d) => {
-        console.log(d);
+            db.payHandler(user.accno, newPayment.person ? newPayment.person.to : d.accno, d.amount, d.description, new Date().toJSON().slice(0,10), getCategoryName(selectedCategory))
     }
 
     const getCategoryIcon = (category) => {
@@ -80,14 +94,23 @@ function Dashboard(props) {
             case 'food': return <FontAwesomeIcon icon={faUtensils} />
             case 'travel': return <FontAwesomeIcon icon={faPlane} />
             case 'shopping': return <FontAwesomeIcon icon={faShoppingBag} />
-            default: return ''
+            case 'medical': return <FontAwesomeIcon icon={faHandHoldingMedical} />
+            case 'entertainment': return <FontAwesomeIcon icon={faFilm} />
+            case 'bills': return <FontAwesomeIcon icon={faReceipt} />
+            default: return <FontAwesomeIcon icon={faCubes} />
         }
     }
 
-    const preParsePayAmount = (e) => {
-        let amount = e.target.value
-        if (isNaN(amount)) console.log("not");
-        else console.log("num");
+    const getCategoryName = (category) => {
+        switch (category) {
+            case faUtensils: return 'food'
+            case faPlane: return 'travel'
+            case faShoppingBag: return 'shopping'
+            case faHandHoldingMedical: return 'medical'
+            case faFilm: return 'entertainment'
+            case faReceipt: return 'bills'
+            default: return 'other'
+        }
     }
 
     if (redirect) return <Redirect push to={{ pathname: redirect, state: user }} />
@@ -102,10 +125,10 @@ function Dashboard(props) {
                 <div className="recents">
                     {
                         recentPersons.length > 1 && recentPersons.map((person, p) =>
-                            <Fragment key={p}><PersonAvatar person={person} onClick={() => { setPayOverlay(true); setNewPayment({ person }) }} /></Fragment>
+                            <Fragment key={p}><PersonAvatar person={person} onClick={() => { setPayOverlay(true); setNewPayment({ person }); setSelectedCategory(faUtensils); }} /></Fragment>
                         )
                     }
-                    <div className="new-pay-button zoom-m">+</div>
+                    <div className="new-pay-button zoom-m" onClick={() => { setPayOverlay(true); setNewPayment(); setSelectedCategory(faUtensils); }}>+</div>
                 </div>
             </div>
             <div className="dashboard-subcontent">
@@ -141,11 +164,22 @@ function Dashboard(props) {
             { payOverlay &&
                 <Overlay visible={payOverlay} bgClick={() => setPayOverlay(!payOverlay)}>
                     <Form onSubmit={handleSubmit(payHandler)}>
-                        <PersonAvatar person={newPayment.person} inline />
-                        <br />
-                        <br />
-                        <Form.Control type="number" name='amount' placeholder='0' className="field pay-amount" ref={register({ required: true })} onBlur={preParsePayAmount} />
-                        <Form.Control type="text" name='description' placeholder='Message' className="field" style={{ textAlign: 'center' }} ref={register({ required: false })} />
+                        {newPayment ?
+                            <Fragment>
+                                <PersonAvatar person={newPayment.person} inline />
+                                <br />
+                                <br />
+                            </Fragment>
+                            :
+                            <Fragment>
+                                <br />
+                                <br />
+                                <Form.Control type="text" name='accno' placeholder='Account Number' className="field" style={{ textAlign: 'center' }} ref={register({ required: false })} onBlur={accnoCheck} />
+                            </Fragment>
+                        }
+
+                        <Form.Control type="number" name='amount' placeholder='0' className="field pay-amount" ref={register({ required: true })} onBlur={amountCheck} />
+                        <Form.Control type="text" name='description' placeholder='Message' className="field" style={{ textAlign: 'center' }} ref={register({ required: true })} />
 
                         {
                             [faUtensils, faPlane, faShoppingBag, faHandHoldingMedical, faFilm, faReceipt, faCubes].map((item, i) =>
@@ -154,15 +188,8 @@ function Dashboard(props) {
                         }
 
                         <br /><br /><br />
-                        <Button type="submit" className='submit'>
-                            {loading ? <Spinner
-                                as="span"
-                                animation="border"
-                                role="status"
-                                size="sm"
-                            /> : 'Pay'}
-                        </Button>
-                        <br />
+                        <Button type="submit" className='submit'>Pay</Button>
+                        <br /><br />
                         {error ? <p className="login-alert">{error}</p> : <br />}
                     </Form>
                 </Overlay>

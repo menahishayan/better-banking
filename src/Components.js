@@ -85,7 +85,7 @@ export const PersonAvatar = props => (
             props.inline &&
             <div style={{ display: 'inline-block', textAlign: 'left', marginLeft: '2%', position: 'relative', top: 12 }}>
                 <span style={{ fontSize: 22, fontWeight: 600, position: 'relative', top: 8 }}>{props.person.name}</span>
-                <small style={{ position: 'relative', color: 'darkgrey' }}><br />{props.person.accno}</small>
+                <small style={{ position: 'relative', color: 'darkgrey' }}><br />{props.person.to}</small>
             </div>
         }
     </div>

@@ -139,6 +139,10 @@ class DB extends React.Component {
 		});
 	}
 
+	payHandler = (from, to, amount, description, date, category) => {
+		console.log({from, to, amount, description, date, category});
+	}
+
 	logout = (callback) => {
 		firebase.auth().signOut().then(callback).catch(error => console.log(error));
 	}
