@@ -65,8 +65,7 @@
     float: right;
 }
 
-.recents::after {
-    content: '+';
+.new-pay-button {
     height: 63px;
     width: 63px;
     border-radius: 50%;

@@ -86,7 +86,7 @@ function Dashboard(props) {
 
     const preParsePayAmount = (e) => {
         let amount = e.target.value
-        if(isNaN(amount)) console.log("not");
+        if (isNaN(amount)) console.log("not");
         else console.log("num");
     }
 
@@ -101,10 +101,11 @@ function Dashboard(props) {
                 <span className="balance amount">{user.balance.toFixed(2)}</span>
                 <div className="recents">
                     {
-                        recentPersons.length > 1  && recentPersons.map((person, p) =>
+                        recentPersons.length > 1 && recentPersons.map((person, p) =>
                             <Fragment key={p}><PersonAvatar person={person} onClick={() => { setPayOverlay(true); setNewPayment({ person }) }} /></Fragment>
                         )
                     }
+                    <div className="new-pay-button zoom-m">+</div>
                 </div>
             </div>
             <div className="dashboard-subcontent">
@@ -144,10 +145,10 @@ function Dashboard(props) {
                         <br />
                         <br />
                         <Form.Control type="number" name='amount' placeholder='0' className="field pay-amount" ref={register({ required: true })} onBlur={preParsePayAmount} />
-                        <Form.Control type="text" name='description' placeholder='Message' className="field" style={{textAlign: 'center'}} ref={register({ required: false})} />
+                        <Form.Control type="text" name='description' placeholder='Message' className="field" style={{ textAlign: 'center' }} ref={register({ required: false })} />
 
                         {
-                            [faUtensils,faPlane,faShoppingBag,faHandHoldingMedical,faFilm,faReceipt,faCubes].map((item,i) => 
+                            [faUtensils, faPlane, faShoppingBag, faHandHoldingMedical, faFilm, faReceipt, faCubes].map((item, i) =>
                                 <div key={i} className={`pay-category-icon ${selectedCategory === item ? "selected-pay-category" : ""}`} onClick={() => setSelectedCategory(item)}><FontAwesomeIcon icon={item} /></div>
                             )
                         }
