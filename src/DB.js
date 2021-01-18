@@ -165,10 +165,16 @@ class DB extends React.Component {
 				histRef.update(historyContent)
 
 				balance -= txnData.amount
-
 				ref.update({balance})
 
-				console.log("db pay handler");
+				let reciever = firebase.database().ref('/users/' + txnData.to);
+				reciever.once('value').then( async(snapshot) => {
+					let data = await snapshot.val()
+					if(data) {
+						reciever.update({balance: data.balance + txnData.amount})
+					}
+				})
+
 				successCallback(balance, txnid)
 			}else{
 				errorCallback("Insufficient balance")

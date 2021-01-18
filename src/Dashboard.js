@@ -99,6 +99,7 @@ function Dashboard(props) {
         db.payHandler(txnData,user.history.length, (balance,txnid) => {
             setBalance(balance)
             user.history.push(txnid)
+            setPayOverlay(false)
         }, (er) => {
             if(er) setError(er)
         })
