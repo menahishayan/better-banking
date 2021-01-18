@@ -205,8 +205,8 @@ function Dashboard(props) {
                         }
 
                         <br /><br /><br />
-                        <Button type="submit" className='submit'>Pay</Button>
-                        <br /><br />
+                        <Button type="submit" className='submit' style={{padding: '2%', width: '100%', borderRadius:12, fontWeight:'bold', fontSize:18}}>Pay</Button>
+                        <br />
                         {error ? <p className="login-alert">{error}</p> : <br />}
                     </Form>
                 </Overlay>

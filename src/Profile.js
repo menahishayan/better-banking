@@ -72,7 +72,7 @@ function Profile(props) {
                         {
                             changePassword &&
                             <Overlay visible={changePassword} bgClick={() => setchangePassword(!changePassword)} height={40} width={50}>
-                                <div style={{ display: 'inline-block', width: '100%', overflow: 'scroll', marginTop: '-2%' }}>
+                                <div style={{ display: 'inline-block', width: '100%', margin: '10% auto'}}>
                                     <Form onSubmit={handleSubmit(passwordHandler)} autocomplete="off">
                                         <Form.Control type="password" name='oldPassword' placeholder='Old Password' className="textfield field" ref={register({ required: true })} autocomplete="off" />
                                         <Form.Control type="password" name='newPassword' placeholder='New Password' className="textfield field" ref={register({ required: true })} />
