@@ -68,10 +68,10 @@ function Profile(props) {
                         <div className='info'><b>Date of Birth :</b> {user.dob}</div>
                         <div className='info'><b>Phone :</b> {user.phone}</div>
                         <div className='info'><b>UPI ID :</b> {user.upi}</div>
-                        <Button className='change' onClick={() => setchangePassword(true)}>Change Password</Button>
+                        <Button className='submit' onClick={() => setchangePassword(true)} style={{borderRadius:12, padding:'1% 5%'}}>Change Password</Button>
                         {
                             changePassword &&
-                            <Overlay visible={changePassword} bgClick={() => setchangePassword(!changePassword)} height={40} width={50}>
+                            <Overlay visible={changePassword} bgClick={() => setchangePassword(!changePassword)} height={40} width={50} small>
                                 <div style={{ display: 'inline-block', width: '100%', margin: '10% auto'}}>
                                     <Form onSubmit={handleSubmit(passwordHandler)} autocomplete="off">
                                         <Form.Control type="password" name='oldPassword' placeholder='Old Password' className="textfield field" ref={register({ required: true })} autocomplete="off" />
@@ -111,12 +111,3 @@ function Profile(props) {
     );
 }
 export default Profile;
-{/* <div>
-                    {   
-                        Object.keys(user).map((item, i) => (
-                            <div>
-                                {user[item].toString()}
-                            </div>
-                        ))
-                    }
-                </div> */}

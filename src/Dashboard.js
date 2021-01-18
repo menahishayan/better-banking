@@ -189,6 +189,7 @@ function Dashboard(props) {
                             :
                             <Fragment>
                                 <br />
+                                <h2>Quick Transfer</h2>
                                 <br />
                                 <Form.Control type="text" name='name' placeholder='Full Name' className="field" style={{ textAlign: 'center' }} ref={register({ required: true })} />
                                 <Form.Control type="text" name='accno' placeholder='Account Number' className="field" style={{ textAlign: 'center' }} ref={register({ required: false })} onBlur={accnoCheck} />

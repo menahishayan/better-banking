@@ -7,7 +7,7 @@ export const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 export const Overlay = props => (
     <Fragment>
         <div className="overlay" onClick={props.bgClick} style={{ opacity: (props.visible === true ? 1 : 0), display: (props.visible === true ? 'block' : 'none') }}></div>
-        <div className="overlay-container" style={{ display: (props.visible === true ? 'block' : 'none') }}>
+        <div className={ props.small ? "overlay-container-small": "overlay-container"} style={{ display: (props.visible === true ? 'block' : 'none') }}>
             {props.children}
         </div>
     </Fragment>
