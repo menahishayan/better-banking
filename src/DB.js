@@ -139,8 +139,40 @@ class DB extends React.Component {
 		});
 	}
 
-	payHandler = (from, to, amount, description, date, category) => {
-		console.log({from, to, amount, description, date, category});
+	dec2hex = (dec) => {
+		return ('0' + dec.toString(16)).substr(-2)
+	}
+
+	generateId = (len) => {
+		var arr = new Uint8Array((len || 40) / 2)
+		window.crypto.getRandomValues(arr)
+		return Array.from(arr, this.dec2hex).join('')
+	}
+
+	payHandler = (txnData, index) => {
+		let ref = firebase.database().ref('/users/' + txnData.from);
+		ref.child('balance').on('value', async (snapshot) => {
+			let balance = await snapshot.val()
+
+			if (balance <= txnData.amount){
+				let txnid = this.generateId(10)
+				let txnRef = firebase.database().ref('/transactions/'+txnid);
+				txnRef.set(txnData) 
+		
+				let histRef = ref.child('history')
+				let historyContent = {}
+				historyContent[index] = txnid
+				histRef.update(historyContent)
+
+				balance -= txnData.amount
+
+			}else{
+
+			}
+
+		})
+
+		
 	}
 
 	logout = (callback) => {

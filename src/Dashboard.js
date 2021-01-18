@@ -74,19 +74,29 @@ function Dashboard(props) {
 
     const accnoCheck = (e) => {
         let accno = e.target.value
-        if(!accno) setError('Please enter an account number')
+        if (!accno) setError('Please enter an account number')
         else if (accno.length < 13) setError('Please enter a valid account number')
         else setError('')
     }
 
     const amountCheck = (e) => {
         let amount = e.target.value
-        if(!amount) setError('Please enter a valid amount')
+        if (!amount) setError('Please enter a valid amount')
         else setError('')
     }
 
     const payHandler = (d) => {
-            db.payHandler(user.accno, newPayment.person ? newPayment.person.to : d.accno, d.amount, d.description, new Date().toJSON().slice(0,10), getCategoryName(selectedCategory))
+        let txnData = {
+            name:newPayment ? newPayment.person.name : d.name,
+            from: user.accno, 
+            to:newPayment ? newPayment.person.to : d.accno, 
+            amount:parseInt(d.amount), 
+            description:d.description, 
+            date: new Date().toJSON().slice(0, 10), 
+            category:getCategoryName(selectedCategory),
+            type: 'person'
+        }
+        db.payHandler(txnData,user.history.length)
     }
 
     const getCategoryIcon = (category) => {
@@ -174,6 +184,7 @@ function Dashboard(props) {
                             <Fragment>
                                 <br />
                                 <br />
+                                <Form.Control type="text" name='name' placeholder='Full Name' className="field" style={{ textAlign: 'center' }} ref={register({ required: true })} />
                                 <Form.Control type="text" name='accno' placeholder='Account Number' className="field" style={{ textAlign: 'center' }} ref={register({ required: false })} onBlur={accnoCheck} />
                             </Fragment>
                         }
