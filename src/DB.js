@@ -149,12 +149,12 @@ class DB extends React.Component {
 		return Array.from(arr, this.dec2hex).join('')
 	}
 
-	payHandler = (txnData, index) => {
+	payHandler = (txnData, index, successCallback, errorCallback) => {
 		let ref = firebase.database().ref('/users/' + txnData.from);
-		ref.child('balance').on('value', async (snapshot) => {
+		ref.child('balance').once('value').then(async (snapshot) => {
 			let balance = await snapshot.val()
 
-			if (balance <= txnData.amount){
+			if (balance >= txnData.amount){
 				let txnid = this.generateId(10)
 				let txnRef = firebase.database().ref('/transactions/'+txnid);
 				txnRef.set(txnData) 
@@ -166,8 +166,12 @@ class DB extends React.Component {
 
 				balance -= txnData.amount
 
-			}else{
+				ref.update({balance})
 
+				console.log("db pay handler");
+				successCallback(balance, txnid)
+			}else{
+				errorCallback("Insufficient balance")
 			}
 
 		})

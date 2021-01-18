@@ -3,7 +3,6 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { useForm } from "react-hook-form";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
-import Spinner from 'react-bootstrap/Spinner'
 import { Redirect } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faUtensils, faPlane, faShoppingBag, faReceipt, faFilm, faHandHoldingMedical, faCubes } from '@fortawesome/free-solid-svg-icons'
@@ -26,6 +25,7 @@ function Dashboard(props) {
     const { register, handleSubmit } = useForm()
 
     var user = props.location.state
+    const [balance, setBalance] = useState(user.balance.toFixed(2));
 
     useEffect(() => {
         db.getProfilePic(user.accno, (url) => {
@@ -96,7 +96,12 @@ function Dashboard(props) {
             category:getCategoryName(selectedCategory),
             type: 'person'
         }
-        db.payHandler(txnData,user.history.length)
+        db.payHandler(txnData,user.history.length, (balance,txnid) => {
+            setBalance(balance)
+            user.history.push(txnid)
+        }, (er) => {
+            if(er) setError(er)
+        })
     }
 
     const getCategoryIcon = (category) => {
@@ -131,7 +136,7 @@ function Dashboard(props) {
             <div className="name">{user.shortname}</div>
             <br /><br />
             <div className="dashboard-main">
-                <span className="balance amount">{user.balance.toFixed(2)}</span>
+                <span className="balance amount">{balance}</span>
                 <div className="recents">
                     {
                         recentPersons.length > 1 && recentPersons.map((person, p) =>
