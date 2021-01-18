@@ -1,9 +1,8 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import './Components.css'
 
 export const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-
 
 export const Overlay = props => (
     <Fragment>
@@ -51,11 +50,12 @@ export const Chart = props => {
 }
 
 export const Card = props => {
+    const [showNumber, setShowNumber] = useState(false);
     const maskedCardNo = (number) => {
         return number.substring(0, 4) + number.substring(4, number.length - 2).replace(/\d/g, "\u2022") + number.substring(number.length - 2);
     }
     return (
-        <div className="card zoom-l">
+        <div className="card zoom-l" onClick={() => setShowNumber(!showNumber)}>
             <div className="card-type">
                 {
                     props.card.provider === 'mastercard' ?
@@ -64,7 +64,7 @@ export const Card = props => {
                         <img src="visa-icon.svg" alt="visa" height="18px" />
                 }
             </div>
-            <div className="card-no">{maskedCardNo(props.card.number)}</div>
+            <div className="card-no">{showNumber ? props.card.number : maskedCardNo(props.card.number)}</div>
         </div>
     )
 }

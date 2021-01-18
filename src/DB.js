@@ -33,18 +33,8 @@ class DB extends React.Component {
 		ref.getDownloadURL().then(callback).catch(err => console.log(err.code))
 	}
 
-	login = (email, pass, errorCallback) => {
-		firebase.auth().signInWithEmailAndPassword(email, pass).catch(errorCallback);
-	}
-
-	loginFetch = (callback) => {
-		firebase.auth().onAuthStateChanged((user) => {
-			if (user) {
-				this.getUser(user.displayName, callback)
-			} else {
-				callback()
-			}
-		});
+	login = (email, pass, successCallback, errorCallback) => {
+		firebase.auth().signInWithEmailAndPassword(email, pass).then((data) => this.getUser(data.user.displayName, successCallback)).catch(errorCallback);
 	}
 
 	createUser = (email, password, callback) => {

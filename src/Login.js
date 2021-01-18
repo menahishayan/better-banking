@@ -26,20 +26,19 @@ function Login() {
             })
         }
         else {
-            db.login(d.email, d.password, (error) => {
+            db.login(d.email, d.password, (user) => {
+                if (user) {
+                    setUser(user);
+                    setRedirect('/dashboard')
+                } else {
+                    setLoading(false)
+                }
+            }, (error) => {
                 setError(error.message)
                 setLoading(false)
                 console.log(error.code);
             })
         }
-        db.loginFetch((user) => {
-            if (user) {
-                setUser(user);
-                setRedirect('/dashboard')
-            } else {
-                setLoading(false)
-            }
-        })
     }
 
     const loginCheck = () => {
