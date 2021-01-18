@@ -37,9 +37,9 @@ function Profile(props) {
     const editdHandler = (d) => {
         console.log("EDIT HANDLER");
         db.edit(user.accno, d, (u) => {
-                console.log(u);
-                setUser(u)
-                setshowEdit(false)
+            console.log(u);
+            setUser(u)
+            setshowEdit(false)
         })
         // setRedirect('/profile')
 
@@ -67,7 +67,6 @@ function Profile(props) {
                         <div className='info'><b>Account Number:</b> {user.accno}</div>
                         <div className='info'><b>Date of Birth :</b> {user.dob}</div>
                         <div className='info'><b>Phone :</b> {user.phone}</div>
-                        <div className='info'><b>Email :</b> {user.email}</div>
                         <div className='info'><b>UPI ID :</b> {user.upi}</div>
                         <Button className='change' onClick={() => setchangePassword(true)}>Change Password</Button>
                         {
@@ -83,29 +82,29 @@ function Profile(props) {
                                 </div>
                             </Overlay>
                         }
-                    </div>:
-                    <div visible={showEdit}>
-                        <div className="profile zoom-m">
-                            <div ><img src={profilePic} className="profile-pic" alt="" /></div>
-                            <span className="person-name">{user.name}</span>
-                        </div>
-                        <FontAwesomeIcon icon={faArrowLeft} style={{ color: 'black' }} className="back-button zoom-m" onClick={() => (setshowEdit(false))} />
-                        <Form onSubmit={handleSubmit(editdHandler)} autocomplete="off" >
-                            <Form.Group style={{ display: 'inline-flex', width: '100%', margin: '0 0% 1% 4%' }}>
-                                Name :<Form.Control type="text" name='name' placeholder={user.name} className="textfield efield" ref={register({ required: false })} />
+                    </div> :
+                        <div visible={showEdit}>
+                            <div className="profile zoom-m">
+                                <div ><img src={profilePic} className="profile-pic" alt="" /></div>
+                                <span className="person-name">{user.name}</span>
+                            </div>
+                            <FontAwesomeIcon icon={faArrowLeft} style={{ color: 'black' }} className="back-button zoom-m" onClick={() => (setshowEdit(false))} />
+                            <Form onSubmit={handleSubmit(editdHandler)} autocomplete="off" >
+                                <Form.Group style={{ display: 'inline-flex', width: '100%', margin: '0 0% 1% 4%' }}>
+                                    Name :<Form.Control type="text" name='name' placeholder={user.name} className="textfield efield" ref={register({ required: false })} />
                                 Short Name :<Form.Control type="text" name='shortname' placeholder={user.shortname} className="textfield efield" ref={register({ required: false })} style={{ marginLeft: '3.5%' }} />
-                            </Form.Group>
-                            <Form.Group style={{ display: 'inline-flex', width: '100%', margin: '0 0% 1% 4%' }}>
-                                UPI ID :<Form.Control type="text" name='upi' placeholder={user.upi} className="textfield efield" ref={register({ required: false })} />
+                                </Form.Group>
+                                <Form.Group style={{ display: 'inline-flex', width: '100%', margin: '0 0% 1% 4%' }}>
+                                    UPI ID :<Form.Control type="text" name='upi' placeholder={user.upi} className="textfield efield" ref={register({ required: false })} />
                                 Date of Birth :<Form.Control type="text" name='dob' placeholder={user.dob} className="textfield efield" ref={register({ required: false })} style={{ marginLeft: '2.5%' }} />
-                            </Form.Group>
-                            <Form.Group style={{ display: 'inline-flex', width: '100%', margin: '0 0% 1% 4%' }}>
-                                Phone :<Form.Control type="text" name='phone' placeholder={user.phone} className="textfield efield" ref={register({ required: false })} />
-                                {/* Account Num :<Form.Control type="text" name='oldPassword' placeholder={user.accno} className="textfield efield" ref={register({ required: false })} /> */}
-                            </Form.Group>
-                            <Button className='submitProfile' type='submit' style={{ width: '30%' }}>Submit</Button>
-                        </Form>
-                    </div>
+                                </Form.Group>
+                                <Form.Group style={{ display: 'inline-flex', width: '100%', margin: '0 0% 1% 4%' }}>
+                                    Phone :<Form.Control type="text" name='phone' placeholder={user.phone} className="textfield efield" ref={register({ required: false })} />
+                                    {/* Account Num :<Form.Control type="text" name='oldPassword' placeholder={user.accno} className="textfield efield" ref={register({ required: false })} /> */}
+                                </Form.Group>
+                                <Button className='submitProfile' type='submit' style={{ width: '30%' }}>Submit</Button>
+                            </Form>
+                        </div>
                 }
             </div>
         </div>

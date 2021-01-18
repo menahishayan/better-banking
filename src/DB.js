@@ -14,7 +14,7 @@ class DB extends React.Component {
 	}
 	getUser = (accno, callback) => {
 		let ref = firebase.database().ref('/users/' + accno);
-		ref.on('value', async (snapshot) => {
+		ref.once('value').then( async (snapshot) => {
 			// var user = firebase.auth().currentUser;
 			// var data = await snapshot.val()
 			// user.updateProfile({
@@ -114,13 +114,13 @@ class DB extends React.Component {
 			var newData = {
 				accno: data.accno,
 				balance: data.balance,
-				history: [],
+				history: data.history,
 				name: d.name || data.name,
 				shortname: d.shortname || data.shortname,
 				upi: d.upi || data.upi,
 				dob: d.dob || data.dob,
 				phone: d.phone || data.phone,
-				cards: []
+				cards: data.cards
 			}
 			firebase.database().ref('/users/' + accno).update(newData, callback(newData))
 		})
